@@ -1,3 +1,4 @@
+/*
 package algorithms.mazeGenerators;
 
 public class SimpleMazeGenerator extends AMazeGenerator {
@@ -21,3 +22,4 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         return new int[0][];
     }
 }
+*/
