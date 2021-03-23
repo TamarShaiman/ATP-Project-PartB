@@ -14,21 +14,18 @@ public class EmptyMazeGenerator extends AMazeGenerator{
         return emptyMaze;
     }
 
-    @Override
-    public Position genStart(Maze Maze) {
+    private Position genStart(Maze Maze) {
         Position start = new Position(0,0);
         return start;
     }
 
-    @Override
-    public Position genGoal(Maze Maze) {
+    private Position genGoal(Maze Maze) {
         Position goal = new Position(Maze.getRowNum()-1,Maze.getColNum()-1);
         return goal;
     }
 
-    @Override
-    public int[][] genTable(Maze Maze) {
-        int[][] table = new int[Maze.getRowNum()-1][Maze.getColNum()-1];
+    private int[][] genTable(Maze Maze) {
+        int[][] table = new int[Maze.getRowNum()][Maze.getColNum()]; // n by m 2D array
         for (int i=0 ; i < Maze.getRowNum() ; i++){
             java.util.Arrays.fill(table[i], 0);
         }
