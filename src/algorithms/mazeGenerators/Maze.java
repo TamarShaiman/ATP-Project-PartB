@@ -21,7 +21,14 @@ public class Maze {
     }
 
     public void print(){
-        System.out.println(Arrays.deepToString(mazeTable));
+        //System.out.println(Arrays.deepToString(mazeTable));
+        for (int i = 0 ; i < rowNum ; i++ ){
+            for (int j = 0 ; j < colNum ; j++){
+                System.out.print(mazeTable[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println(); //ends the line after each row
+        }
     }
 
     public Position getStartPosition() {
