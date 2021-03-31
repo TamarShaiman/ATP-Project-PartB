@@ -46,14 +46,23 @@ public class Maze {
         this.mazeTable[row][col] = 0;
     }
 
+    public void setColToOnes(int col, int startInd, int endInd) {
+        for (int i = startInd; i <= endInd; i++) {
+            this.setCell1(i, col);
+        }
+    }
+
+    public void setRowToOnes(int row, int startInd, int endInd) {
+        for (int i = startInd; i <= endInd; i++) {
+            this.setCell1(row, i);
+        }
+    }
 
     public Position getStartPosition() {
         return this.start;
     }
 
-    public Position getGoalPosition() {
-        return this.goal;
-    }
+    public Position getGoalPosition() { return this.goal; }
 
     public void setRowNum(int rowNum) {
         this.rowNum = rowNum;
