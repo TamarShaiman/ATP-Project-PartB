@@ -24,10 +24,37 @@ public class Maze {
         //System.out.println(Arrays.deepToString(mazeTable));
         for (int i = 0 ; i < rowNum ; i++ ){
             for (int j = 0 ; j < colNum ; j++){
-                System.out.print(mazeTable[i][j]);
+//                System.out.print(mazeTable[i][j]);
+                if (mazeTable[i][j] == 0){
+                    System.out.print(" ");
+                }
+                else{
+                    System.out.print("O");
+                }
                 System.out.print(" ");
+
             }
             System.out.println(); //ends the line after each row
+        }
+    }
+
+    public void setCell1(int row, int col){
+        this.mazeTable[row][col] = 1;
+    }
+
+    public void setCell0(int row, int col){
+        this.mazeTable[row][col] = 0;
+    }
+
+    public void setColToOnes(int col, int startInd, int endInd) {
+        for (int i = startInd; i <= endInd; i++) {
+            this.setCell1(i, col);
+        }
+    }
+
+    public void setRowToOnes(int row, int startInd, int endInd) {
+        for (int i = startInd; i <= endInd; i++) {
+            this.setCell1(row, i);
         }
     }
 
@@ -35,9 +62,7 @@ public class Maze {
         return this.start;
     }
 
-    public Position getGoalPosition() {
-        return this.goal;
-    }
+    public Position getGoalPosition() { return this.goal; }
 
     public void setRowNum(int rowNum) {
         this.rowNum = rowNum;
