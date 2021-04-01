@@ -27,7 +27,7 @@ public class MyMazeGenerator  extends AMazeGenerator {
             Position neigh = findSeparatedCell(myMaze, currWall); //neigh is the cell that is not part of the maze - if exists
             if (!(neigh == null)){
                 //Make the wall a passage
-                myMaze.setCell0(currWall.getRowIndex(), currWall.getColIndex()); //TODO:make sure method integrates with Maze
+                myMaze.setCell0(currWall.getRowIndex(), currWall.getColIndex());
                 //mark the unvisited cell as part of the maze
                 myMaze.setCell0(neigh.getRowIndex(), neigh.getColIndex());
                 //Add the neighboring walls of the cell to the wall list
@@ -175,7 +175,7 @@ public class MyMazeGenerator  extends AMazeGenerator {
                     gridTable[i][j] = counter;
                     counter ++;
                 } else {
-                    gridTable[i][j] = 1; //TODO: maybe use method set rows to 1
+                    gridTable[i][j] = 1;
                 }
             }
         }
