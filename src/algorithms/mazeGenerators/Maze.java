@@ -23,26 +23,26 @@ public class Maze {
     public void print(){
         //System.out.println(Arrays.deepToString(mazeTable));
         for (int i = 0 ; i < rowNum ; i++ ){
+            System.out.print("{ ");
             for (int j = 0 ; j < colNum ; j++){
 //                System.out.print(mazeTable[i][j]);
                 if (mazeTable[i][j] == 0){
                     if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
-                        System.out.print("S");
+                        System.out.print("S ");
                     }
                     else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j){
-                        System.out.print("E");
+                        System.out.print("E ");
                     }
                     else{
-                        System.out.print(".");
+                        System.out.print("0 ");
                     }
                 }
                 else{
-                    System.out.print("X");
+                    System.out.print("1 ");
                 }
-                System.out.print(" ");
-
             }
-            System.out.println(); //ends the line after each row
+            System.out.println("}");
+            //System.out.println(); //ends the line after each row
         }
     }
 

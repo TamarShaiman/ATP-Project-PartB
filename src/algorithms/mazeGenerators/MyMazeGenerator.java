@@ -5,7 +5,6 @@ public class MyMazeGenerator  extends AMazeGenerator {
 
     @Override
     public Maze generate(int rows, int columns) {
-
         Maze myMaze = new Maze();
         myMaze.setColNum(columns);
         myMaze.setRowNum(rows);
@@ -44,8 +43,8 @@ public class MyMazeGenerator  extends AMazeGenerator {
     }
 
     private void breakGoal(Maze myMaze, Position goalPos) {
-        myMaze.setCell0(goalPos.getRowIndex(), goalPos.getRowIndex());
-        myMaze.setCell0(goalPos.getRowIndex(), goalPos.getRowIndex()-1);
+        myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex());
+        myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-1);
     }
 
     private Position genStart(Maze myMaze) {
@@ -105,17 +104,6 @@ public class MyMazeGenerator  extends AMazeGenerator {
             wallList.add(neigh);
         }
     }
-
-
-    /*private boolean[][] initMazeNeighMatrix(Maze myMaze, int rows, int columns) {
-        boolean[][] mazaNeighMatix = new boolean[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                mazaNeighMatix[i][j] = false;
-            }
-        }
-        return mazaNeighMatix;
-    }*/
 
     private ArrayList<Position> initWallList() {
         ArrayList<Position> wallsList = new ArrayList<>();
