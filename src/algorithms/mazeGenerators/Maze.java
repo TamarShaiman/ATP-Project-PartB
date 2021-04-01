@@ -26,10 +26,18 @@ public class Maze {
             for (int j = 0 ; j < colNum ; j++){
 //                System.out.print(mazeTable[i][j]);
                 if (mazeTable[i][j] == 0){
-                    System.out.print(" ");
+                    if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
+                        System.out.print("S");
+                    }
+                    else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j){
+                        System.out.print("E");
+                    }
+                    else{
+                        System.out.print(".");
+                    }
                 }
                 else{
-                    System.out.print("O");
+                    System.out.print("X");
                 }
                 System.out.print(" ");
 
@@ -92,4 +100,12 @@ public class Maze {
         return colNum;
     }
 
+    public int getCellValue(int row, int col) {
+        if (row < this.getRowNum() && col < this.getColNum()) {
+            return this.mazeTable[row][col];
+        }
+        else {
+            return -1;
+        }
+    }
 }

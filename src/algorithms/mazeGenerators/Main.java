@@ -6,9 +6,15 @@ public class Main {
         Maze EMaze = EMG.generate(10,10);
         EMaze.print();*/
 
-        SimpleMazeGenerator SMG = new SimpleMazeGenerator();
-        Maze SMaze = SMG.generate(20,20);
+        /*SimpleMazeGenerator SMG = new SimpleMazeGenerator();
+        Maze SMaze = SMG.generate(5,5);
         System.out.println(SMG.measureAlgorithmTimeMillis(1000,1000));
-        SMaze.print();
+        SMaze.print();*/
+
+        MyMazeGenerator MMG = new MyMazeGenerator();
+        System.out.print("number of milliseconds: ");
+        System.out.println(MMG.measureAlgorithmTimeMillis(1000,1000));
+        //Maze MMaze = MMG.generate(40,40);
+        //MMaze.print();
     }
 }

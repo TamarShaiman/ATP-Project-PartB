@@ -20,21 +20,38 @@ public class MyMazeGenerator  extends AMazeGenerator {
         //boolean[][] cellsInMazeMatrix = initMazeNeighMatrix(myMaze, rows, columns); //initiate all the cells in the matrix to false
         myMaze.setStart(genStart(myMaze));
         Position startPos = myMaze.getStartPosition();
+        myMaze.setGoal(genGoal(myMaze));
         addWallsNeighToWL(myMaze, rows, columns,wallList, startPos);
         while(!wallList.isEmpty()){
             Position currWall = extractWallRandom(wallList);
             Position neigh = findSeparatedCell(myMaze, currWall); //neigh is the cell that is not part of the maze - if exists
             if (!(neigh == null)){
                 //Make the wall a passage
-                myMaze.setCellTo0(currWall.getColIndex(), currWall.getRowIndex()); //TODO:make sure method integrates with Maze
+                myMaze.setCell0(currWall.getRowIndex(), currWall.getColIndex()); //TODO:make sure method integrates with Maze
                 //mark the unvisited cell as part of the maze
-                myMaze.setCellTo0(neigh.getColIndex(), neigh.getRowIndex());
+                myMaze.setCell0(neigh.getRowIndex(), neigh.getColIndex());
                 //Add the neighboring walls of the cell to the wall list
                 addWallsNeighToWL(myMaze, rows, columns,wallList, neigh);
             }
             wallList.remove(currWall);
         }
-        myMaze.setGoal(genGoal(myMaze));
+    }
+
+    private Position genGoal(Maze myMaze) {
+        Position goalPos = new Position(myMaze.getRowNum()-1 , myMaze.getColNum()-1);
+        breakGoal(myMaze, goalPos);
+        return goalPos;
+    }
+
+    private void breakGoal(Maze myMaze, Position goalPos) {
+        myMaze.setCell0(goalPos.getRowIndex(), goalPos.getRowIndex());
+        myMaze.setCell0(goalPos.getRowIndex(), goalPos.getRowIndex()-1);
+    }
+
+    private Position genStart(Maze myMaze) {
+        Position startPos = new Position(0 , 0);
+        myMaze.setCell0(0,0);
+        return  startPos;
     }
 
     private Position findSeparatedCell(Maze myMaze, Position currWall) { // returns the neighbor cell that is not part of the maz, if exist
@@ -55,10 +72,10 @@ public class MyMazeGenerator  extends AMazeGenerator {
             neighA = myMaze.getCellValue(currRow - 1, currCol);
             neighB = myMaze.getCellValue(currRow + 1, currCol);
             if (neighA == 0 && neighB == 2){
-                return new Position(currRow - 1, currCol); //return neigh B
+                return new Position(currRow + 1, currCol); //return neigh B
             }
             else if (neighA == 2 && neighB == 0){
-                return new Position(currRow + 1, currCol); //return neigh A
+                return new Position(currRow - 1, currCol); //return neigh A
             }
         }
         return null;
@@ -67,23 +84,28 @@ public class MyMazeGenerator  extends AMazeGenerator {
     private void addWallsNeighToWL(Maze myMaze,int rows, int columns, ArrayList<Position> wallList, Position cellPos) {
         int currRow = cellPos.getRowIndex();
         int currCol = cellPos.getColIndex();
-        if (currRow != 0){
-            Position neighUp = new Position(currRow-1,currCol);
-            wallList.add(neighUp);
+        if (currRow != 0) {
+            addWallToMaze(myMaze, wallList, currRow - 1, currCol);
         }
-        else if (currRow != rows-1){
-            Position neighBottom = new Position(currRow+1,currCol);
-            wallList.add(neighBottom);
+        if (currRow != rows-1){
+            addWallToMaze(myMaze, wallList, currRow + 1, currCol);
         }
-        else if (currCol != 0){
-            Position neighLeft = new Position(currRow,currCol-1);
-            wallList.add(neighLeft);
+        if (currCol != 0){
+            addWallToMaze(myMaze, wallList, currRow, currCol-1);
         }
-        else if (currCol != columns-1){
-            Position neighRight = new Position(currRow,currCol+1);
-            wallList.add(neighRight);
+        if (currCol != columns-1){
+            addWallToMaze(myMaze, wallList, currRow, currCol + 1);
         }
     }
+
+    private void addWallToMaze (Maze myMaze, ArrayList<Position> wallList, int row, int col){
+        Position neigh = new Position(row, col);
+        if (myMaze.getCellValue(row, col) == 3 ) {
+            myMaze.setCell1(row, col);
+            wallList.add(neigh);
+        }
+    }
+
 
     /*private boolean[][] initMazeNeighMatrix(Maze myMaze, int rows, int columns) {
         boolean[][] mazaNeighMatix = new boolean[rows][columns];
@@ -106,9 +128,14 @@ public class MyMazeGenerator  extends AMazeGenerator {
             for (int j = 0; j < columns; j++) {
                 if (i % 2 == 0 && j % 2 == 0 ) {
                     gridTable[i][j] = 2;
-                } else {
+                }
+                else if (i % 2 == 1 && j % 2 == 1 ) {
                     gridTable[i][j] = 1;
                 }
+                else {
+                    gridTable[i][j] = 3;
+                }
+
             }
         }
         return gridTable;
@@ -121,20 +148,6 @@ public class MyMazeGenerator  extends AMazeGenerator {
         return pos;
     }
 
-    @Override
-    public Position genStart(Maze Maze) { //TODO:
-        return null;
-    }
-
-    @Override
-    public Position genGoal(Maze Maze) {
-        return null;
-    }
-
-    @Override
-    public int[][] genTable(Maze Maze) {
-        return new int[0][];
-    }
 }
 
 /*
