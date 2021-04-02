@@ -8,10 +8,10 @@ public class Main {
         Maze EMaze = EMG.generate(10,10);
         EMaze.print();*/
 
-        /*SimpleMazeGenerator SMG = new SimpleMazeGenerator();
-        Maze SMaze = SMG.generate(5,5);
-        System.out.println(SMG.measureAlgorithmTimeMillis(1000,1000));
-        SMaze.print();*/
+        SimpleMazeGenerator SMG = new SimpleMazeGenerator();
+        Maze SMaze = SMG.generate(20,20);
+        //System.out.println(SMG.measureAlgorithmTimeMillis(1000,1000));
+        SMaze.print();
 
 /*        MyMazeGenerator MMG = new MyMazeGenerator();
 //        System.out.print("number of milliseconds: ");
@@ -19,6 +19,6 @@ public class Main {
         Maze MMaze = MMG.generate(10,15);
         MMaze.print();*/
 
-        RunMazeGenerator RGM = new RunMazeGenerator();
+        //RunMazeGenerator RGM = new RunMazeGenerator();
     }
 }

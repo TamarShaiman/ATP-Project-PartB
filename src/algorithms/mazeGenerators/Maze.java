@@ -1,8 +1,12 @@
 package algorithms.mazeGenerators;
 
+import algorithms.search.AState;
+import algorithms.search.ISearchable;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Maze {
+public class Maze implements ISearchable {
     private int rowNum;
     private int colNum;
     private Position start;
@@ -20,6 +24,21 @@ public class Maze {
     public Maze() {
     }
 
+    @Override
+    public AState getStartState() { //TODO
+        return null;
+    }
+
+    @Override
+    public AState getGoalState() { //TODO
+        return null;
+    }
+
+    @Override
+    public ArrayList<AState> getAllSuccessors(AState state) { //TODO
+        return null;
+    }
+
     public void print(){
         //System.out.println(Arrays.deepToString(mazeTable));
         for (int i = 0 ; i < rowNum ; i++ ){
@@ -34,11 +53,11 @@ public class Maze {
                         System.out.print("E ");
                     }
                     else{
-                        System.out.print("0 ");
+                        System.out.print(". "); //TODO: change back to 0
                     }
                 }
                 else{
-                    System.out.print("1 ");
+                    System.out.print("█ "); //TODO: change back to 1
                 }
             }
             System.out.println("}");
