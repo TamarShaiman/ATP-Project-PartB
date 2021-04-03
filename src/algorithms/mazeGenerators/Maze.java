@@ -6,7 +6,7 @@ import algorithms.search.ISearchable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Maze implements ISearchable {
+public class Maze {
     private int rowNum;
     private int colNum;
     private Position start;
@@ -21,23 +21,8 @@ public class Maze implements ISearchable {
         this.mazeTable = mazeTable;
     }
 
-    public Maze() {
-    }
-
-    @Override
-    public AState getStartState() { //TODO
-        return null;
-    }
-
-    @Override
-    public AState getGoalState() { //TODO
-        return null;
-    }
-
-    @Override
-    public ArrayList<AState> getAllSuccessors(AState state) { //TODO
-        return null;
-    }
+    /*public Maze() {
+    }*/
 
     public void print(){
         //System.out.println(Arrays.deepToString(mazeTable));
