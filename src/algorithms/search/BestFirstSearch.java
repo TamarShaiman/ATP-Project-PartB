@@ -7,13 +7,11 @@ import java.util.Queue;
 
 public class BestFirstSearch extends ABFSBasedSearchingAlgorithm{
 
-    @Override
-    protected void setDataStructure() {
-        PriorityQueue<AState> priorityQueue = new PriorityQueue<AState>(new bestComparator());
-        this.dataStructure = priorityQueue;
+    public BestFirstSearch() {
+        super();
+        Queue<AState> queue = new PriorityQueue<>(new bestComparator());
+        this.dataStructure = queue;
     }
-
-
 
 }
 

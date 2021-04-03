@@ -2,27 +2,35 @@ package algorithms.search;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     //protected PriorityQueue<AState> openList;
     private int visitedNodes;
+    //protected Object dataStructure;
 
     public String getName() {
         return this.getClass().getName();
     }
 
-    public Solution solve(ISearchable domain){
+    public Solution solve(ISearchable domain) {
         ArrayList<AState> solutionPath = new ArrayList<AState>();
         AState currState = search(domain);
         AState startState = domain.getStartState();
-        while (!currState.equals(startState)){
+/*        if (currState == null) {
+            System.out.println("we have a problemmmm");
+             return null;
+        }*/
+        while (!currState.equals(startState)) {
             solutionPath.add(currState);
             currState = currState.getCameFrom();
         }
         Solution solution = new Solution();
         solution.setSolutionPath(solutionPath);
         return solution;
-    }
+        }
+
+
 
     public ASearchingAlgorithm() {
         //this.openList = new PriorityQueue<AState>();
@@ -35,7 +43,7 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     }*/
 
     @Override
-    public int getNumberOfVisitedNodes() {
+    public int getNumberOfNodesEvaluated() {
         return visitedNodes;
     }
 
@@ -47,4 +55,5 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     protected void increaseVisitedNodes(){
         this.visitedNodes++;
     }
+
 }

@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class DepthFirstSearch extends ASearchingAlgorithm{
+    private Stack<AState> dataStructure;
 
 /*    @Override
     public String getName() {
@@ -13,20 +14,22 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
     }*/
 
     public DepthFirstSearch() {
-
+        super();
+        Stack<AState> stack = new Stack<>();
+        this.dataStructure = stack;
     }
 
     @Override
     public AState search(ISearchable s) {
-        Stack<AState> stack = new Stack<>();
+//        Stack<AState> stack = new Stack<>();
         AState start = s.getStartState();
         AState goal = s.getGoalState();
-        stack.push(start);
+        dataStructure.push(start);
         AState currNode = start;
         currNode.setCameFrom(start);
         this.increaseVisitedNodes();
-        while (!stack.isEmpty()){
-            AState nextNode = stack.pop();
+        while (!dataStructure.isEmpty()){
+            AState nextNode = dataStructure.pop();
             if (currNode.equals(goal)){
                 return currNode;
             }
@@ -35,7 +38,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
                 this.increaseVisitedNodes();
                 ArrayList<AState> successorsList = s.getAllSuccessors(nextNode);
                 for (AState successor : successorsList) {
-                    stack.push(successor);
+                    dataStructure.push(successor);
                 }
                 currNode = nextNode;
             }

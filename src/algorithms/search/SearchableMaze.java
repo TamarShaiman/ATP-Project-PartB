@@ -30,6 +30,9 @@ public class SearchableMaze implements ISearchable{
 
     @Override
     public ArrayList<AState> getAllSuccessors(AState cameFrom) {
+        if (!(cameFrom instanceof MazeState)){
+            return null;
+        }
         ArrayList<AState> successorsList = new ArrayList<>();
         int cameFromRow = ((MazeState)cameFrom).getPosition().getRowIndex();
         int cameFromCol = ((MazeState)cameFrom).getPosition().getColIndex();
@@ -49,7 +52,7 @@ public class SearchableMaze implements ISearchable{
 
     private void addSuccessorsOrthogonally(ArrayList<AState> successorsList, double cameFromCost, int neighRow, int neighCol){
         if (maze.getCellValue(neighRow, neighCol) == 0){
-            AState successor = new AState(new Position(neighRow, neighCol).toString());
+            MazeState successor = new MazeState(new Position(neighRow, neighCol));
             successor.setCost(cameFromCost + 10);
             successorsList.add(successor);
         }
@@ -59,8 +62,8 @@ public class SearchableMaze implements ISearchable{
         if (maze.getCellValue(cameFromRow, cameFromCol) == 0){
             int neighA = maze.getCellValue(cameFromRow, neighCol);
             int neighB = maze.getCellValue(neighRow, cameFromCol);
-            if (neighA == 0 || neighB == 0){
-                AState successor = new AState(new Position(neighRow, neighCol).toString());
+            if ((neighA == 0 || neighB == 0) && neighB != -1 && neighA != -1){
+                MazeState successor = new MazeState(new Position(neighRow, neighCol));
                 successor.setCost(cameFromCost + 15);
                 successorsList.add(successor);
             }

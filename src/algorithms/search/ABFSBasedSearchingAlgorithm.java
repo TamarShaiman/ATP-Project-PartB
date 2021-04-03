@@ -8,12 +8,17 @@ public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
     private int NumberOfVisitedNodes = 0;
     protected Queue<AState> dataStructure;
 
-    protected void setDataStructure() {}
+/*    public ABFSBasedSearchingAlgorithm() {
+        super();
+        setDataStructure();
+    }
+
+    protected void setDataStructure() {}*/
 
     protected int calcCost(AState state){return 0;}
 
     @Override
-    public int getNumberOfVisitedNodes() {
+    public int getNumberOfNodesEvaluated() {
         return NumberOfVisitedNodes;
     }
 
@@ -24,22 +29,25 @@ public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
         start.setCameFrom(start); //cameFrom indicates that the node was discovered, so in the Root we manipulate labeling root as discovered
         this.increaseVisitedNodes();
         dataStructure.add(start);
-        AState currNode = dataStructure.poll();
+        AState currNode = null;
         while (!dataStructure.isEmpty()) {
+            currNode = dataStructure.poll();
             if (currNode.equals(goal)) {
                 return currNode;
             } else {
                 ArrayList<AState> successorsList = s.getAllSuccessors(currNode);
-                for (int i = 0; i < successorsList.size(); i++) {
-                    AState nextNode = successorsList.get(i);
-                    if (nextNode.getCameFrom() == null) { //nextNode was not discovered
-                        nextNode.setCameFrom(currNode);
-                        this.increaseVisitedNodes();
-                        dataStructure.add(nextNode);
+                if (successorsList != null) {
+                    for (int i = 0; i < successorsList.size(); i++) {
+                        AState nextNode = successorsList.get(i);
+                        if (nextNode.getCameFrom() == null) { //nextNode was not discovered
+                            nextNode.setCameFrom(currNode);
+                            this.increaseVisitedNodes();
+                            dataStructure.add(nextNode);
+                        }
                     }
                 }
             }
-            currNode = dataStructure.poll();
+            //currNode = dataStructure.poll();
         }
         return currNode;
     }

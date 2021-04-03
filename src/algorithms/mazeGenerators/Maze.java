@@ -21,8 +21,8 @@ public class Maze {
         this.mazeTable = mazeTable;
     }
 
-    /*public Maze() {
-    }*/
+    public Maze() {
+    }
 
     public void print(){
         //System.out.println(Arrays.deepToString(mazeTable));
@@ -105,7 +105,7 @@ public class Maze {
     }
 
     public int getCellValue(int row, int col) {
-        if (row < this.getRowNum() && col < this.getColNum()) {
+        if (row < this.getRowNum() && col < this.getColNum() && row >= 0 && col >=0) {
             return this.mazeTable[row][col];
         }
         else {
