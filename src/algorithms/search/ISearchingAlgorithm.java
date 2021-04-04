@@ -2,5 +2,8 @@ package algorithms.search;
 
 public interface ISearchingAlgorithm {
     AState search(ISearchable s);
-    int getNumberOfVisitedNodes();
+    int getNumberOfNodesEvaluated();
+    String getName();
+    Solution solve(ISearchable domain);
+    //int getNumberOfNodesEvaluated();
 }

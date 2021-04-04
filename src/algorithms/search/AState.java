@@ -2,7 +2,7 @@ package algorithms.search;
 
 public class AState {
     private String state;
-    private double cost;
+    private double cost = 0;
     private AState cameFrom;
 
     public AState(String state){
@@ -46,5 +46,10 @@ public class AState {
 
     public void setCameFrom(AState cameFrom) {
         this.cameFrom = cameFrom;
+    }
+
+    public String toString()
+    {
+        return this.state;
     }
 }
