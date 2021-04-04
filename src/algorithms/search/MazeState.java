@@ -7,7 +7,6 @@ public class MazeState extends AState{
     private int col;
     private Position position;
 
-
     public MazeState(Position position) {
         super(position.toString()); //AState requires String As argument. Position's toString - {row, col}
         this.position = position;

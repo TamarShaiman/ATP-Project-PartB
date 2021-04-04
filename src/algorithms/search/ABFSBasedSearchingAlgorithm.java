@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
-    private int NumberOfVisitedNodes = 0;
     protected Queue<AState> dataStructure;
 
 /*    public ABFSBasedSearchingAlgorithm() {
@@ -17,10 +16,6 @@ public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
 
     protected int calcCost(AState state){return 0;}
 
-    @Override
-    public int getNumberOfNodesEvaluated() {
-        return NumberOfVisitedNodes;
-    }
 
     @Override
     public AState search(ISearchable s) {

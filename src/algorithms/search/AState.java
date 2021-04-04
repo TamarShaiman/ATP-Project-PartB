@@ -47,4 +47,9 @@ public class AState {
     public void setCameFrom(AState cameFrom) {
         this.cameFrom = cameFrom;
     }
+
+    public String toString()
+    {
+        return this.state;
+    }
 }
