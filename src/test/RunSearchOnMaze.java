@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class RunSearchOnMaze {
         public static void main(String[] args) {
-            IMazeGenerator mg = new MyMazeGenerator();
- //         IMazeGenerator mg = new EmptyMazeGenerator();
-            //IMazeGenerator mg = new SimpleMazeGenerator();
+            //IMazeGenerator mg = new MyMazeGenerator();
+            // IMazeGenerator mg = new EmptyMazeGenerator();
+            IMazeGenerator mg = new SimpleMazeGenerator();
             Maze maze = mg.generate(15, 10);
             maze.print();
             SearchableMaze searchableMaze = new SearchableMaze(maze);
@@ -28,9 +28,9 @@ public class RunSearchOnMaze {
             //Printing Solution Path
             System.out.println("Solution path:");
             ArrayList<AState> solutionPath = solution.getSolutionPath();
-/*            for (int i = 0; i < solutionPath.size(); i++) {
+            for (int i = 0; i < solutionPath.size(); i++) {
                 System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
-            }*/
+            }
         }
 }
 
