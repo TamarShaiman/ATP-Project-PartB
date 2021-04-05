@@ -31,7 +31,9 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
 
         while (!this.dataStructure.isEmpty()) {
             currNode = dataStructure.pop();
+            this.increaseVisitedNodes();
             if (currNode.equals(goal)) {
+                currNode.setCameFrom(fatherNode);
                 return currNode;
             }
             if (currNode.getCameFrom() == null) {
@@ -39,15 +41,17 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
                 for (AState successor : successorsList) {
                     dataStructure.push(successor);
                 }
+                currNode.setCameFrom(fatherNode);
                 if (successorsList.size() > 1) {
                     fatherNode = currNode;
-                    junctionStack.push(fatherNode);
+                    for (int i = 0; i < successorsList.size()-1; i++) {
+                        junctionStack.push(fatherNode);
+                    }
                 } else if (successorsList.size() == 1) {
                     fatherNode = currNode;
                 } else { //successorsList.size() == 0 , no neighbors
                     fatherNode = junctionStack.pop();
                 }
-                currNode.setCameFrom(fatherNode);
             }
         }
         return null;

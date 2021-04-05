@@ -39,9 +39,9 @@ public class SimpleMazeGenerator extends AMazeGenerator {
             int numOfVerticalHoles = genNumOfHoles(columns, k);
 
             genAndSetRandomZeroesInFrameCols(simpleMaze, rows, columns, k + 1, rows - 1 - k, numOfHorizontalHoles, k); //left
-            genAndSetRandomZeroesInFrameCols(simpleMaze, rows, columns, k + 1, rows - 1 - k, numOfHorizontalHoles, rows - 1 - k); //right
+            genAndSetRandomZeroesInFrameCols(simpleMaze, rows, columns, k + 1, rows - 1 - k, numOfHorizontalHoles, columns - 1 - k); //right
             genAndSetRandomZeroesInFrameRows(simpleMaze, rows, columns, k + 1, columns - 1 - k, numOfVerticalHoles, k); //top
-            genAndSetRandomZeroesInFrameRows(simpleMaze, rows, columns, k + 1, columns - 1 - k, numOfVerticalHoles, columns - 1 - k); //Bottom
+            genAndSetRandomZeroesInFrameRows(simpleMaze, rows, columns, k + 1, columns - 1 - k, numOfVerticalHoles, rows - 1 - k); //Bottom
         }
     }
 
@@ -88,7 +88,7 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         simpleMaze.setStart(startPos);
         int goalInd = genRandomInd(1, rows - 2);
         simpleMaze.setCell0(goalInd, columns - 1);
-        Position endPos = new Position(goalInd, rows - 1);
+        Position endPos = new Position(goalInd, columns - 1);
         simpleMaze.setGoal(endPos);
     }
 
