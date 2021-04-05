@@ -17,9 +17,9 @@ public class BestFirstSearch extends ABFSBasedSearchingAlgorithm{
 
 class bestComparator implements Comparator<AState> {
     public int compare(AState state1, AState state2) {
-        if (state1.getCost() > state2.getCost()) { //TODO: double check if needs to be backwards
+        if (state1.getCost() < state2.getCost()) { //TODO: double check if needs to be backwards
             return -1;
-        } else if (state1.getCost() < state2.getCost()){
+        } else if (state1.getCost() > state2.getCost()){
             return 1;
         }
         else{

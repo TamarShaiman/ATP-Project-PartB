@@ -45,6 +45,8 @@ public class MyMazeGenerator  extends AMazeGenerator {
     private void breakGoal(Maze myMaze, Position goalPos) {
         myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex());
         myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-1);
+        if( myMaze.getColNum() > 2 && myMaze.getRowNum() > 2){
+            myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-2);}
     }
 
     private Position genStart(Maze myMaze) {
