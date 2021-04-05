@@ -6,16 +6,20 @@ import java.util.ArrayList;
 
 public class RunSearchOnMaze {
         public static void main(String[] args) {
-            IMazeGenerator mg = new MyMazeGenerator();
-            Maze maze = mg.generate(10, 10);
-           // maze.print();
+//            IMazeGenerator mg = new MyMazeGenerator();
+ //           IMazeGenerator mg = new EmptyMazeGenerator();
+            IMazeGenerator mg = new SimpleMazeGenerator();
+            Maze maze = mg.generate(7, 15);
+            maze.print();
             SearchableMaze searchableMaze = new SearchableMaze(maze);
             long start = System.currentTimeMillis();
-            solveProblem(searchableMaze, new BreadthFirstSearch());
+            //solveProblem(searchableMaze, new BreadthFirstSearch());
+            solveProblem(searchableMaze, new DepthFirstSearch());
+
             long end = System.currentTimeMillis();
             System.out.println(end - start);
-            solveProblem(searchableMaze, new DepthFirstSearch());
-            solveProblem(searchableMaze, new BestFirstSearch());
+            //solveProblem(searchableMaze, new DepthFirstSearch());
+            //solveProblem(searchableMaze, new BestFirstSearch());
         }
         private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
             //Solve a searching problem with a searcher

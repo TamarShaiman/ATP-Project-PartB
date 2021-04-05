@@ -1,6 +1,7 @@
 package algorithms.search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -17,15 +18,12 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
         ArrayList<AState> solutionPath = new ArrayList<AState>();
         AState currState = search(domain);
         AState startState = domain.getStartState();
-/*        if (currState == null) {
-            System.out.println("we have a problemmmm");
-             return null;
-        }*/
         while (!currState.equals(startState)) {
             solutionPath.add(currState);
             currState = currState.getCameFrom();
         }
         Solution solution = new Solution();
+        Collections.reverse(solutionPath);
         solution.setSolutionPath(solutionPath);
         return solution;
         }
