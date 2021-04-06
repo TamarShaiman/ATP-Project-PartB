@@ -5,35 +5,28 @@ import algorithms.search.*;
 import java.util.ArrayList;
 
 public class RunSearchOnMaze {
-        public static void main(String[] args) {
-            //IMazeGenerator mg = new MyMazeGenerator();
-            // IMazeGenerator mg = new EmptyMazeGenerator();
-            IMazeGenerator mg = new SimpleMazeGenerator();
-            Maze maze = mg.generate(15, 10);
-            maze.print();
-            SearchableMaze searchableMaze = new SearchableMaze(maze);
-            long start = System.currentTimeMillis();
-            //solveProblem(searchableMaze, new BreadthFirstSearch());
-            //solveProblem(searchableMaze, new DepthFirstSearch());
-            solveProblem(searchableMaze, new BestFirstSearch());
-            long end = System.currentTimeMillis();
-            System.out.println(end - start);
-            //solveProblem(searchableMaze, new DepthFirstSearch());
-
-        }
-        private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
-            //Solve a searching problem with a searcher
-            Solution solution = searcher.solve(domain);
-            System.out.println(String.format("'%s' algorithm - nodes evaluated:  %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
-            //Printing Solution Path
-            System.out.println("Solution path:");
-            ArrayList<AState> solutionPath = solution.getSolutionPath();
-            for (int i = 0; i < solutionPath.size(); i++) {
-                System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
-            }
-        }
+    public static void main(String[] args) {
+        IMazeGenerator mg = new MyMazeGenerator();
+        Maze maze = mg.generate(17, 15);
+        maze.print();
+        SearchableMaze searchableMaze = new SearchableMaze(maze);
+        solveProblem(searchableMaze, new BreadthFirstSearch());
+        //maze.printWithSolution();
+        solveProblem(searchableMaze, new DepthFirstSearch());
+        //maze.printWithSolution();
+        solveProblem(searchableMaze, new BestFirstSearch());
+        //maze.printWithSolution();
+    }
+    private static void solveProblem(ISearchable domain, ISearchingAlgorithm
+            searcher) {
+//Solve a searching problem with a searcher
+        Solution solution = searcher.solve(domain);
+        System.out.println(String.format("'%s' algorithm - nodes evaluated: %s", searcher.getName(), searcher.getNumberOfNodesEvaluated()));
+//Printing Solution Path
+                System.out.println("Solution path:");
+        ArrayList<AState> solutionPath = solution.getSolutionPath();
+/*        for (int i = 0; i < solutionPath.size(); i++) {
+            System.out.println(String.format("%s.%s",i,solutionPath.get(i)));
+        }*/
+    }
 }
-
-
-
-

@@ -11,10 +11,11 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     //protected Object dataStructure;
 
     public String getName() {
-        return this.getClass().getName();
+        return this.getClass().getSimpleName();
     }
 
     public Solution solve(ISearchable domain) {
+        //domain.resetProblem();
         ArrayList<AState> solutionPath = new ArrayList<AState>();
         AState currState = search(domain);
         AState startState = domain.getStartState();
@@ -25,9 +26,9 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
         Solution solution = new Solution();
         Collections.reverse(solutionPath);
         solution.setSolutionPath(solutionPath);
+        //domain.setSolution(solution); //TODO delete after tests
         return solution;
         }
-
 
 
     public ASearchingAlgorithm() {

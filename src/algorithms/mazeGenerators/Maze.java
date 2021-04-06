@@ -2,6 +2,8 @@ package algorithms.mazeGenerators;
 
 import algorithms.search.AState;
 import algorithms.search.ISearchable;
+import algorithms.search.MazeState;
+import algorithms.search.Solution;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +14,7 @@ public class Maze {
     private Position start;
     private Position goal;
     private int[][] mazeTable;
+    //private Solution solution; //TODO delete after tests
 
     public Maze(int rowNum, int colNum, Position start, Position goal, int[][] mazeTable) {
         this.rowNum = rowNum;
@@ -112,4 +115,42 @@ public class Maze {
             return -1;
         }
     }
+
+/*    public void setSolution(Solution solution) { //TODO delete after tests
+        this.solution = solution;
+    }*/
+
+    /*public void printWithSolution(){ //TODO delete after tests
+        //System.out.println(Arrays.deepToString(mazeTable));
+        for (int i = 0 ; i < rowNum ; i++ ){
+            System.out.print("{ ");
+            for (int j = 0 ; j < colNum ; j++){
+//                System.out.print(mazeTable[i][j]);
+                if (mazeTable[i][j] == 0){
+                    if (searchNodeInSolution(i,j) == true){
+                        System.out.print("O ");
+                    }
+                    else if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
+                        System.out.print("S ");
+                    }
+                    else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j){
+                        System.out.print("E ");
+                    }
+                    else{
+                        System.out.print(". "); //TODO: change back to 0
+                    }
+                }
+                else{
+                    System.out.print("█ "); //TODO: change back to 1
+                }
+            }
+            System.out.println("}");
+            //System.out.println(); //ends the line after each row
+        }
+    }
+
+    private boolean searchNodeInSolution(int i, int j) { //TODO delete after tests
+
+        return this.solution.getSolutionPath().contains(new MazeState(new Position(i,j)));
+    }*/
 }

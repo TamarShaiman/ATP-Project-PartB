@@ -19,7 +19,7 @@ public class MyMazeGenerator  extends AMazeGenerator {
         //boolean[][] cellsInMazeMatrix = initMazeNeighMatrix(myMaze, rows, columns); //initiate all the cells in the matrix to false
         myMaze.setStart(genStart(myMaze));
         Position startPos = myMaze.getStartPosition();
-        myMaze.setGoal(genGoal(myMaze));
+        //myMaze.setGoal(genGoal(myMaze));
         addWallsNeighToWL(myMaze, rows, columns,wallList, startPos);
         while(!wallList.isEmpty()){
             Position currWall = extractWallRandom(wallList);
@@ -34,6 +34,7 @@ public class MyMazeGenerator  extends AMazeGenerator {
             }
             wallList.remove(currWall);
         }
+        myMaze.setGoal(genGoal(myMaze));
     }
 
     private Position genGoal(Maze myMaze) {
@@ -45,8 +46,8 @@ public class MyMazeGenerator  extends AMazeGenerator {
     private void breakGoal(Maze myMaze, Position goalPos) {
         myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex());
         myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-1);
-        if( myMaze.getColNum() > 2 && myMaze.getRowNum() > 2){
-            myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-2);}
+        /*if( myMaze.getColNum() > 2 && myMaze.getRowNum() > 2){
+            myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-2);}*/
     }
 
     private Position genStart(Maze myMaze) {
