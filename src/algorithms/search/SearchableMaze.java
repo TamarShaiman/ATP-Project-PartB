@@ -10,17 +10,17 @@ public class SearchableMaze implements ISearchable{
     Maze maze;
     int rows;
     int columns;
-    boolean[][] visitedNodes;
+    //boolean[][] visitedNodes;
 
     public SearchableMaze(Maze maze) {
         this.maze = maze;
         this.columns = maze.getColNum();
         this.rows = maze.getRowNum();
-        this.visitedNodes = new boolean[rows][columns];
+        /*this.visitedNodes = new boolean[rows][columns];
         for (int i = 0; i < rows; i++) {
             Arrays.fill(this.visitedNodes[i], false);
         }
-        this.visitedNodes[this.maze.getStartPosition().getRowIndex()][this.maze.getStartPosition().getColIndex()] = true;
+        this.visitedNodes[this.maze.getStartPosition().getRowIndex()][this.maze.getStartPosition().getColIndex()] = true;*/
     }
 
     @Override
@@ -58,35 +58,33 @@ public class SearchableMaze implements ISearchable{
     }
 
     private void addSuccessorsOrthogonally(ArrayList<AState> successorsList, double cameFromCost,  int neighRow, int neighCol){
-        if (maze.getCellValue(neighRow, neighCol) == 0 && !this.visitedNodes[neighRow][neighCol]) {
+        if (maze.getCellValue(neighRow, neighCol) == 0 ) {
             MazeState successor = new MazeState(new Position(neighRow, neighCol));
             successor.setCost(cameFromCost + 10);
             successorsList.add(successor);
-            this.visitedNodes[neighRow][neighCol] = true;
+
         }
     }
 
     private void addSuccessorsDiagonally(ArrayList<AState> successorsList, double cameFromCost, int cameFromRow, int cameFromCol, int neighRow, int neighCol){
-        if (maze.getCellValue(neighRow, neighCol) == 0 && !this.visitedNodes[neighRow][neighCol]){
+        if (maze.getCellValue(neighRow, neighCol) == 0 ){
             int neighA = maze.getCellValue(cameFromRow, neighCol);
             int neighB = maze.getCellValue(neighRow, cameFromCol);
             if ((neighA == 0 || neighB == 0) && neighB != -1 && neighA != -1){
                 MazeState successor = new MazeState(new Position(neighRow, neighCol));
                 successor.setCost(cameFromCost + 15);
                 successorsList.add(successor);
-                this.visitedNodes[neighRow][neighCol] = true;
-
             }
         }
     }
 
-    @Override
+    /*@Override
     public void resetProblem() {
         for (int i = 0; i < rows; i++) {
             Arrays.fill(this.visitedNodes[i], false);
         }
         this.visitedNodes[this.maze.getStartPosition().getRowIndex()][this.maze.getStartPosition().getColIndex()] = true;
-    }
+    }*/
 
 /*    @Override
     public void setSolution(Solution solution) {  //TODO delete after tests

@@ -8,6 +8,8 @@ import java.util.Queue;
 public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     //protected PriorityQueue<AState> openList;
     private int visitedNodes;
+    boolean[][] visitedNodesTable;
+
     //protected Object dataStructure;
 
     public String getName() {
@@ -23,6 +25,7 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
             solutionPath.add(currState);
             currState = currState.getCameFrom();
         }
+        solutionPath.add(startState);
         Solution solution = new Solution();
         Collections.reverse(solutionPath);
         solution.setSolutionPath(solutionPath);
