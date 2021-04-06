@@ -80,4 +80,16 @@ public class SearchableMaze implements ISearchable{
         }
     }
 
+    @Override
+    public void resetProblem() {
+        for (int i = 0; i < rows; i++) {
+            Arrays.fill(this.visitedNodes[i], false);
+        }
+        this.visitedNodes[this.maze.getStartPosition().getRowIndex()][this.maze.getStartPosition().getColIndex()] = true;
+    }
+
+/*    @Override
+    public void setSolution(Solution solution) {  //TODO delete after tests
+        maze.setSolution(solution);
+    }*/
 }
