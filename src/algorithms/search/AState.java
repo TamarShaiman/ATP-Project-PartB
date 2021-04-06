@@ -7,6 +7,7 @@ public class AState {
 
     public AState(String state){
         this.state = state;
+       // this.cameFrom = null ;
     }
 
     @Override
