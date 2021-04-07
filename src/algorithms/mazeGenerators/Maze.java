@@ -14,7 +14,6 @@ public class Maze {
     private Position start;
     private Position goal;
     private int[][] mazeTable;
-    //private Solution solution; //TODO delete after tests
 
     public Maze(int rowNum, int colNum, Position start, Position goal, int[][] mazeTable) {
         this.rowNum = rowNum;
@@ -32,8 +31,8 @@ public class Maze {
         for (int i = 0 ; i < rowNum ; i++ ){
             System.out.print("{ ");
             for (int j = 0 ; j < colNum ; j++){
-//                System.out.print(mazeTable[i][j]);
-                if (mazeTable[i][j] == 0){
+                System.out.print(mazeTable[i][j] + " ");
+/*                if (mazeTable[i][j] == 0){
                     if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
                         System.out.print("S ");
                     }
@@ -46,7 +45,7 @@ public class Maze {
                 }
                 else{
                     System.out.print("█ "); //TODO: change back to 1
-                }
+                }*/
             }
             System.out.println("}");
             //System.out.println(); //ends the line after each row

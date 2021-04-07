@@ -16,11 +16,6 @@ public class SearchableMaze implements ISearchable{
         this.maze = maze;
         this.columns = maze.getColNum();
         this.rows = maze.getRowNum();
-        /*this.visitedNodes = new boolean[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            Arrays.fill(this.visitedNodes[i], false);
-        }
-        this.visitedNodes[this.maze.getStartPosition().getRowIndex()][this.maze.getStartPosition().getColIndex()] = true;*/
     }
 
     @Override
