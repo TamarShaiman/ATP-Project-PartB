@@ -35,6 +35,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
             }
             if (!visitedNodes.contains(currNode)) {
                 visitedNodes.add(currNode);
+                this.increaseVisitedNodes();
                 ArrayList<AState> successorsList = s.getAllSuccessors(currNode);
                 for (AState successor : successorsList) {
                     if(successor.getCameFrom()== null ){

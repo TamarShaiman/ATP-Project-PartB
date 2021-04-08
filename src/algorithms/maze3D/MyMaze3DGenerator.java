@@ -53,6 +53,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         myMaze.setCell0(goalPos.getDepthIndex(), goalPos.getRowIndex(), goalPos.getColIndex());
         myMaze.setCell0(goalPos.getDepthIndex(),goalPos.getRowIndex(), goalPos.getColIndex()-1);
         myMaze.setCell0(goalPos.getDepthIndex()-1,goalPos.getRowIndex(), goalPos.getColIndex()-1);
+        myMaze.setCell0(goalPos.getDepthIndex()-1,goalPos.getRowIndex(), goalPos.getColIndex());
+
 
     }
 

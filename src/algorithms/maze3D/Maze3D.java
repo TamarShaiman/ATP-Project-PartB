@@ -77,18 +77,18 @@ public class Maze3D {
                 //System.out.print("{ ");
                 for (int j = 0; j < colNum; j++) {
 //                System.out.print(mazeTable[i][j]);
-/*                    if (map[k][i][j] == 0) {
-                        if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j) {
+                    if (map[k][i][j] == 0) {
+                        if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j && this.getStartPosition().getDepthIndex() == k) {
                             System.out.print("S ");
-                        } else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j) {
+                        } else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j && this.getGoalPosition().getDepthIndex() == k) {
                             System.out.print("E ");
                         } else {
                             System.out.print(". "); //TODO: change back to 0
                         }
                     } else {
                         System.out.print("█ "); //TODO: change back to 1
-                    }*/
-                    System.out.print(map[k][i][j] + " ");
+                    }
+                   // System.out.print(map[k][i][j] + " ");
                 }
                 //System.out.println("}");
                 System.out.println(); //ends the line after each row
