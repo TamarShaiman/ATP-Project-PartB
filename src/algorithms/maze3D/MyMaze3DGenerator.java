@@ -52,6 +52,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
     private void breakGoal(Maze3D myMaze, Position3D goalPos) {
         myMaze.setCell0(goalPos.getDepthIndex(), goalPos.getRowIndex(), goalPos.getColIndex());
         myMaze.setCell0(goalPos.getDepthIndex(),goalPos.getRowIndex(), goalPos.getColIndex()-1);
+        myMaze.setCell0(goalPos.getDepthIndex()-1,goalPos.getRowIndex(), goalPos.getColIndex()-1);
+
     }
 
     private Position3D genStart(Maze3D myMaze) {

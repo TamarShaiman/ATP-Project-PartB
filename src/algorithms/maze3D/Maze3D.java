@@ -105,6 +105,9 @@ public class Maze3D {
     }
 
     public int getCellValue(int depth, int row, int col) {
-        return  this.map[depth][row][col];
+        if ( depth < this.depthNum && row < this.rowNum && col < this.colNum && depth>= 0 && row >= 0 && col >=0) {
+            return this.map[depth][row][col];
+        }
+        else {return -1;}
     }
 }
