@@ -18,14 +18,15 @@ public class SimpleMazeGenerator extends AMazeGenerator {
     private void genAndSetTable(Maze simpleMaze) {
         int rows = simpleMaze.getRowNum();
         int columns = simpleMaze.getColNum();
-
+        if (rows < 4 || columns < 4){
+            genSmallerThan3X3Table(simpleMaze, rows, columns);
+            return;
+        }
         initMaze(simpleMaze, rows, columns);
-
         //if the Maze is smaller than 8X8, we will initiate it differently
         if (rows < 8 || columns < 8){
             genSmallTable(simpleMaze, rows, columns);
         }
-
         else {
             genBigTable(simpleMaze, rows, columns);
         }
@@ -87,6 +88,9 @@ public class SimpleMazeGenerator extends AMazeGenerator {
         Position startPos = new Position(startInd, 0);
         simpleMaze.setStart(startPos);
         int goalInd = genRandomInd(1, rows - 2);
+        while (rows != 3 && startInd == goalInd){
+            goalInd = genRandomInd(1, rows - 2);
+        }
         simpleMaze.setCell0(goalInd, columns - 1);
         Position endPos = new Position(goalInd, columns - 1);
         simpleMaze.setGoal(endPos);
