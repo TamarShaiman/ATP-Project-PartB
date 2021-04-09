@@ -25,8 +25,24 @@ public class Maze {
 
     public Maze() {
     }
+    public void print() {
 
-    public void print(){
+        for (int row = 0; row < mazeTable.length; row++) {
+            System.out.print("{ ");
+            for (int col = 0; col < mazeTable[0].length; col++) {
+                if (row == start.getRowIndex() && col == start.getColIndex()) // if the position is the start - mark with S
+                    System.out.print("S ");
+                else {
+                    if  (row == goal.getRowIndex() && col == goal.getColIndex()) // if the position is the goal - mark with E
+                        System.out.print("E ");
+                    else
+                        System.out.print(mazeTable[row][col] + " ");
+                }
+            }
+            System.out.println("}");
+        }
+    }
+    public void printTest(){
         //System.out.println(Arrays.deepToString(mazeTable));
         for (int i = 0 ; i < rowNum ; i++ ){
             System.out.print("{ ");
@@ -115,41 +131,4 @@ public class Maze {
         }
     }
 
-/*    public void setSolution(Solution solution) { //TODO delete after tests
-        this.solution = solution;
-    }*/
-
-    /*public void printWithSolution(){ //TODO delete after tests
-        //System.out.println(Arrays.deepToString(mazeTable));
-        for (int i = 0 ; i < rowNum ; i++ ){
-            System.out.print("{ ");
-            for (int j = 0 ; j < colNum ; j++){
-//                System.out.print(mazeTable[i][j]);
-                if (mazeTable[i][j] == 0){
-                    if (searchNodeInSolution(i,j) == true){
-                        System.out.print("O ");
-                    }
-                    else if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
-                        System.out.print("S ");
-                    }
-                    else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j){
-                        System.out.print("E ");
-                    }
-                    else{
-                        System.out.print(". "); //TODO: change back to 0
-                    }
-                }
-                else{
-                    System.out.print("█ "); //TODO: change back to 1
-                }
-            }
-            System.out.println("}");
-            //System.out.println(); //ends the line after each row
-        }
-    }
-
-    private boolean searchNodeInSolution(int i, int j) { //TODO delete after tests
-
-        return this.solution.getSolutionPath().contains(new MazeState(new Position(i,j)));
-    }*/
 }
