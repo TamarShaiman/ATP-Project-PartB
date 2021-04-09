@@ -3,14 +3,12 @@ package algorithms.search;
 import java.util.*;
 
 public class DepthFirstSearch extends ASearchingAlgorithm{
+    /**
+     * DepthFirstSearch uses Stack and HashSet data structures.
+     * HashSet indicate if an Astate was visit.
+     */
     private Stack<AState> dataStructure;
     HashSet<AState> visitedNodes;
-
-
-/*    @Override
-    public String getName() {
-        return this.getClass().getName();
-    }*/
 
     public DepthFirstSearch() {
         super();
@@ -18,10 +16,13 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
         this.dataStructure = stack;
     }
 
+    /**
+     * @param s  searchable problem
+     * @return goal Astate or null
+     */
     @Override
     public AState search(ISearchable s) {
         visitedNodes = new HashSet<>();
-        Stack<AState> junctionStack = new Stack<>();
         AState start = s.getStartState();
         AState goal = s.getGoalState();
         AState currNode;
@@ -29,7 +30,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm{
         while (!this.dataStructure.isEmpty()) {
             currNode = dataStructure.pop();
             if (currNode.equals(goal)) {
-                //currNode.setCameFrom(fatherNode);
                 visitedNodes.add(currNode);
                 return currNode;
             }

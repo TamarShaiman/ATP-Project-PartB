@@ -9,6 +9,9 @@ public class Maze3DState extends AState{
     private int col;
     private Position3D position;
 
+    /**
+     * @param position in order to create Astate.
+     */
     public Maze3DState(Position3D position) {
         super(position.toString()); //AState requires String As argument. Position's toString - {row, col}
         this.position = position;

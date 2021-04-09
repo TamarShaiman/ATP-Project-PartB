@@ -7,6 +7,10 @@ import algorithms.mazeGenerators.Position;
 
 import java.util.ArrayList;
 
+
+/**
+ * SearchableMaze3D is type of ISearchable problem.
+ */
 public class SearchableMaze3D implements ISearchable{
     Maze3D maze;
     int depth;
@@ -32,6 +36,10 @@ public class SearchableMaze3D implements ISearchable{
         return goalState;
     }
 
+    /**
+     * @param cameFrom AState - in order to find all the successors of each Astate , finds all the options for the next step from the current AState.
+     * @return list of successors AState, included possibles steps (up,bottom,left,right,front,back)
+     */
     @Override
     public ArrayList<AState> getAllSuccessors(AState cameFrom) {
         if (!(cameFrom instanceof Maze3DState)) {
@@ -53,7 +61,6 @@ public class SearchableMaze3D implements ISearchable{
 
         return successorsList;
     }
-
     private void addSuccessorsOrthogonally(ArrayList<AState> successorsList, double cameFromCost,int neighDepth,  int neighRow, int neighCol){
         if (maze.getCellValue(neighDepth,neighRow, neighCol) == 0 ) {
             Maze3DState successor = new Maze3DState(new Position3D(neighDepth, neighRow, neighCol));

@@ -6,11 +6,13 @@ import algorithms.mazeGenerators.Position;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * SearchableMaze is type of ISearchable problem.
+ */
 public class SearchableMaze implements ISearchable{
     Maze maze;
     int rows;
     int columns;
-    //boolean[][] visitedNodes;
 
     public SearchableMaze(Maze maze) {
         this.maze = maze;
@@ -30,6 +32,10 @@ public class SearchableMaze implements ISearchable{
         return goalState;
     }
 
+    /**
+     * @param cameFrom AState - in order to find all the successors of each Astate , finds all the options for the next step from the current AState.
+     * @return list of successors AState, included possibles steps orthogonally & diagonally in the maze.
+     */
     @Override
     public ArrayList<AState> getAllSuccessors(AState cameFrom) {
         if (!(cameFrom instanceof MazeState)){
@@ -73,16 +79,4 @@ public class SearchableMaze implements ISearchable{
         }
     }
 
-    /*@Override
-    public void resetProblem() {
-        for (int i = 0; i < rows; i++) {
-            Arrays.fill(this.visitedNodes[i], false);
-        }
-        this.visitedNodes[this.maze.getStartPosition().getRowIndex()][this.maze.getStartPosition().getColIndex()] = true;
-    }*/
-
-/*    @Override
-    public void setSolution(Solution solution) {  //TODO delete after tests
-        maze.setSolution(solution);
-    }*/
 }

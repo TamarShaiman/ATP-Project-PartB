@@ -5,19 +5,29 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
-    //protected PriorityQueue<AState> openList;
-    private int visitedNodes;
-    boolean[][] visitedNodesTable;
+/**
+ * Abstract class that implements ISearching Algorithms
+ * created shared solve method because all the algorithms shared the same pattern to identify the solution path
+ */
 
-    //protected Object dataStructure;
+public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
+    private int visitedNodes;
+
+    public ASearchingAlgorithm() {
+        /**
+         * default constructor set visitedNodes to 0.
+         */
+        this.visitedNodes = 0;
+    }
 
     public String getName() {
         return this.getClass().getSimpleName();
     }
 
     public Solution solve(ISearchable domain) {
-        //domain.resetProblem();
+        /**
+         * identify the solution path using cameFrom field  - from goal position on each Astate until reaching start Position
+         */
         ArrayList<AState> solutionPath = new ArrayList<AState>();
         AState currState = search(domain);
         AState startState = domain.getStartState();
@@ -29,29 +39,12 @@ public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
         Solution solution = new Solution();
         Collections.reverse(solutionPath);
         solution.setSolutionPath(solutionPath);
-        //domain.setSolution(solution); //TODO delete after tests
         return solution;
         }
-
-
-    public ASearchingAlgorithm() {
-        //this.openList = new PriorityQueue<AState>();
-        this.visitedNodes = 0;
-    }
-
-/*    protected AState popOpenList(){
-        this.visitedNodes++;
-        return this.openList.poll();
-    }*/
 
     @Override
     public int getNumberOfNodesEvaluated() {
         return visitedNodes;
-    }
-
-    @Override
-    public AState search(ISearchable s) {
-        return null;
     }
 
     protected void increaseVisitedNodes(){

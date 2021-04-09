@@ -2,28 +2,28 @@ package algorithms.search;
 
 import java.util.*;
 
+/**
+ * abstract class to manage a common search method for searching algorithms that similar to BFS
+ * the class has 2 fields: dataStructure - which implemented by queue and HashSet of visited nodes.
+ */
 public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
     protected Queue<AState> dataStructure;
     HashSet<AState> visitedNodes;
 
-/*    public ABFSBasedSearchingAlgorithm() {
-        super();
-        setDataStructure();
-    }
-
-    protected void setDataStructure() {}*/
-
     protected int calcCost(AState state){return 0;}
-
 
     @Override
     public AState search(ISearchable s) {
+        /**
+         * @param1 - searchable problem that contains Start & Goal positions with list of states.
+         * search method on nodes using Breath search using reference to the cost of the step.
+         * returns the goalPosition or null
+         */
         visitedNodes = new HashSet<>();
         AState start = s.getStartState();
         AState goal = s.getGoalState();
         start.setCameFrom(start); //cameFrom indicates that the node was discovered, so in the Root we manipulate labeling root as discovered
         visitedNodes.add(start);
-        this.increaseVisitedNodes();
         dataStructure.add(start);
         AState currNode = null;
         while (!dataStructure.isEmpty()) {
@@ -44,7 +44,6 @@ public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
                     }
                 }
             }
-            //currNode = dataStructure.poll();
         }
         return currNode;
     }
