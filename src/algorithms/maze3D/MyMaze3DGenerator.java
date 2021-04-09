@@ -68,9 +68,19 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         int currDepth = currWall.getDepthIndex();
         int currRow = currWall.getRowIndex();
         int currCol = currWall.getColIndex();
+        Position3D  nextCell;
+        if (currDepth % 2 == 0) {
+              nextCell = findNextCellDepthEven(myMaze, currDepth,  currRow,  currCol);
+        }
+        else { //currDepth %2 == 1
+              nextCell = findNextCellDepthOdd(myMaze, currDepth,  currRow,  currCol);
+        }
+        return nextCell;
+    }
+
+    private Position3D findNextCellDepthEven(Maze3D myMaze,int currDepth, int currRow, int currCol){
         int neighA, neighB;
-        if (currDepth %2 == 0) {
-            if (currRow % 2 == 0) { // A is Right to currWall, B is Left to currWall
+        if (currRow % 2 == 0) { // A is Right to currWall, B is Left to currWall
                 neighA = myMaze.getCellValue(currDepth, currRow, currCol - 1);
                 neighB = myMaze.getCellValue(currDepth, currRow, currCol + 1);
                 if (neighA == 0 && neighB == 2) {
@@ -78,27 +88,29 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
                 } else if (neighA == 2 && neighB == 0) {
                     return new Position3D(currDepth, currRow, currCol - 1); //return neigh A
                 }
-            } else { // A is Below currWall, B is Above currWall
-                neighA = myMaze.getCellValue(currDepth, currRow - 1, currCol);
-                neighB = myMaze.getCellValue(currDepth,currRow + 1, currCol);
-                if (neighA == 0 && neighB == 2) {
-                    return new Position3D(currDepth, currRow + 1, currCol); //return neigh B
-                } else if (neighA == 2 && neighB == 0) {
-                    return new Position3D(currDepth, currRow - 1, currCol); //return neigh A
-                }
-            }
-        }
-        else { //currDepth %2 == 1
-            neighA = myMaze.getCellValue(currDepth - 1, currRow, currCol );
-            neighB = myMaze.getCellValue(currDepth + 1, currRow, currCol);
+        } else { // A is Below currWall, B is Above currWall
+            neighA = myMaze.getCellValue(currDepth, currRow - 1, currCol);
+            neighB = myMaze.getCellValue(currDepth,currRow + 1, currCol);
             if (neighA == 0 && neighB == 2) {
-                return new Position3D(currDepth + 1, currRow, currCol); //return neigh B
+                return new Position3D(currDepth, currRow + 1, currCol); //return neigh B
             } else if (neighA == 2 && neighB == 0) {
-                return new Position3D(currDepth - 1, currRow, currCol); //return neigh A
+                return new Position3D(currDepth, currRow - 1, currCol); //return neigh A
             }
         }
         return null;
     }
+    private Position3D findNextCellDepthOdd(Maze3D myMaze,int currDepth, int currRow, int currCol) {
+        int neighA, neighB;
+        neighA = myMaze.getCellValue(currDepth - 1, currRow, currCol);
+        neighB = myMaze.getCellValue(currDepth + 1, currRow, currCol);
+        if (neighA == 0 && neighB == 2) {
+            return new Position3D(currDepth + 1, currRow, currCol); //return neigh B
+        } else if (neighA == 2 && neighB == 0) {
+            return new Position3D(currDepth - 1, currRow, currCol); //return neigh A
+        }
+        return null;
+    }
+
 
     private void addWallsNeighToWL(Maze3D myMaze,int depth, int rows, int columns, ArrayList<Position3D> wallList, Position3D cellPos) {
         int currDepth = cellPos.getDepthIndex();

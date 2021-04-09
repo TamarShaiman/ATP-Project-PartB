@@ -17,6 +17,7 @@ public class RunMaze3DGenerator {
 
         // prints the maze
         maze.print();
+        //maze.printTest();
         // get the maze entrance
         Position3D startPosition = maze.getStartPosition();
         // print the start position
