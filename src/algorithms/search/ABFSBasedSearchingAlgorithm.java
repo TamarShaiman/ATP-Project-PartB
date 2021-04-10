@@ -12,13 +12,13 @@ public abstract class ABFSBasedSearchingAlgorithm extends ASearchingAlgorithm {
 
     protected int calcCost(AState state){return 0;}
 
+    /**
+     * @param1 - searchable problem that contains Start & Goal positions with list of states.
+     * search method on nodes using Breath search using reference to the cost of the step.
+     * returns the goalPosition or null
+     */
     @Override
     public AState search(ISearchable s) {
-        /**
-         * @param1 - searchable problem that contains Start & Goal positions with list of states.
-         * search method on nodes using Breath search using reference to the cost of the step.
-         * returns the goalPosition or null
-         */
         visitedNodes = new HashSet<>();
         AState start = s.getStartState();
         AState goal = s.getGoalState();

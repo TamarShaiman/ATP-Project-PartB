@@ -15,9 +15,17 @@ public class SearchableMaze implements ISearchable{
     int columns;
 
     public SearchableMaze(Maze maze) {
+        validateMazeInput(maze);
         this.maze = maze;
         this.columns = maze.getColNum();
         this.rows = maze.getRowNum();
+    }
+
+    private void validateMazeInput(Maze maze) throws IllegalArgumentException{
+       if (maze.getRowNum() < 0|| maze.getColNum() < 0 || maze.getStartPosition() == null || maze.getGoalPosition() ==  null)
+       {
+           throw new IllegalArgumentException("invalid argument of maze");
+       }
     }
 
     @Override

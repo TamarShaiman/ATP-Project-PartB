@@ -6,6 +6,7 @@ package algorithms.mazeGenerators;
 public class EmptyMazeGenerator extends AMazeGenerator{
 
     public Maze generate(int rows, int columns){
+        validateInput(rows, columns);
         Maze emptyMaze = new Maze();
         emptyMaze.setColNum(columns);
         emptyMaze.setRowNum(rows);

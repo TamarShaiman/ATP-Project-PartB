@@ -12,11 +12,10 @@ import java.util.Queue;
 
 public  abstract class ASearchingAlgorithm implements ISearchingAlgorithm{
     private int visitedNodes;
-
+    /**
+     * default constructor set visitedNodes to 0.
+     */
     public ASearchingAlgorithm() {
-        /**
-         * default constructor set visitedNodes to 0.
-         */
         this.visitedNodes = 0;
     }
 

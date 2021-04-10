@@ -10,6 +10,7 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
 
     @Override
     public Maze3D generate(int depth, int row, int column) {
+        validateInput(depth,row,column);
         Maze3D myMaze = new Maze3D();
         myMaze.setDepth(depth);
         myMaze.setCol(column);
@@ -22,10 +23,8 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
 
     private void primGenerate(Maze3D myMaze, int depth, int rows, int columns) {
         ArrayList<Position3D> wallList = initWallList();
-        //boolean[][] cellsInMazeMatrix = initMazeNeighMatrix(myMaze, rows, columns); //initiate all the cells in the matrix to false
         myMaze.setStart(genStart(myMaze));
         Position3D startPos = myMaze.getStartPosition();
-        //myMaze.setGoal(genGoal(myMaze));
         addWallsNeighToWL(myMaze,depth, rows, columns,wallList, startPos);
         while(!wallList.isEmpty()){
             Position3D currWall = extractWallRandom(wallList);

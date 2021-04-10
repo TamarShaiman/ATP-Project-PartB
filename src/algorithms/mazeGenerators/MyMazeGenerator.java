@@ -8,6 +8,7 @@ public class MyMazeGenerator  extends AMazeGenerator {
 
     @Override
     public Maze generate(int rows, int columns) {
+        validateInput(rows, columns);
         Maze myMaze = new Maze();
         myMaze.setColNum(columns);
         myMaze.setRowNum(rows);

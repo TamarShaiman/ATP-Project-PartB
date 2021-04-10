@@ -6,6 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SimpleMazeGenerator extends AMazeGenerator {
 
     public Maze generate(int rows, int columns) {
+        validateInput(rows, columns);
         Maze simpleMaze = new Maze();
         simpleMaze.setColNum(columns);
         simpleMaze.setRowNum(rows);
