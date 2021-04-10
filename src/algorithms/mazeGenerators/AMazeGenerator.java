@@ -4,6 +4,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Math.abs;
 
+/**
+ * abstract class implements IMazeGenerator interface.
+ */
 public abstract class AMazeGenerator implements IMazeGenerator {
 
     public long measureAlgorithmTimeMillis(int rows, int columns){
@@ -13,6 +16,12 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         return end - start;
     }
 
+    /**
+     * genSmallerThan3X3Table created in order to handle base case when row || columns is smaller than 3/
+     * @param maze
+     * @param rows
+     * @param columns
+     */
     public void genSmallerThan3X3Table(Maze maze, int rows, int columns) {
         if (rows == 2 && columns == 2){
             genS2X2Table(maze, rows, columns);

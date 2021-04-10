@@ -2,6 +2,9 @@ package algorithms.maze3D;
 
 import algorithms.mazeGenerators.Position;
 
+/**
+ * Maze3D class
+ */
 public class Maze3D {
     private int depthNum;
     private int rowNum;
@@ -19,8 +22,7 @@ public class Maze3D {
         this.map = map;
     }
 
-    public Maze3D() {
-    }
+    public Maze3D() { }
 
     public Position3D getStartPosition() {
         return startPosition;
@@ -129,7 +131,11 @@ public class Maze3D {
     public void setCell1(int depth, int row , int col) {
         this.map[depth][row][col] = 1 ;
     }
-
+    /**
+     * @param row
+     * @param col
+     * @return the cell value(int) and in case the indexes not part of the maze return -1.
+     */
     public int getCellValue(int depth, int row, int col) {
         if ( depth < this.depthNum && row < this.rowNum && col < this.colNum && depth>= 0 && row >= 0 && col >=0) {
             return this.map[depth][row][col];

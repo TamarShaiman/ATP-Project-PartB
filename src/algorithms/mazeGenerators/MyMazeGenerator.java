@@ -1,6 +1,9 @@
 package algorithms.mazeGenerators;
 import java.util.*;
 
+/**
+ * MyMazeGenerator class in order to generate maze using Prim's algorithm.
+ */
 public class MyMazeGenerator  extends AMazeGenerator {
 
     @Override
@@ -14,12 +17,18 @@ public class MyMazeGenerator  extends AMazeGenerator {
         return myMaze;
     }
 
+    /**
+     * generate maze table using Prim's algorithm.
+     * As part of Prim's algorithm: cells can be considered not part of the maze.
+     * In order to identify if a cell is part of the maze we mange 2 different values: 0 - cell is part of the maze and 2 if not.
+     * @param myMaze
+     * @param rows
+     * @param columns
+     */
     private void primGenerate(Maze myMaze, int rows, int columns) {
         ArrayList<Position> wallList = initWallList();
-        //boolean[][] cellsInMazeMatrix = initMazeNeighMatrix(myMaze, rows, columns); //initiate all the cells in the matrix to false
         myMaze.setStart(genStart(myMaze));
         Position startPos = myMaze.getStartPosition();
-        //myMaze.setGoal(genGoal(myMaze));
         addWallsNeighToWL(myMaze, rows, columns,wallList, startPos);
         while(!wallList.isEmpty()){
             Position currWall = extractWallRandom(wallList);
@@ -43,11 +52,14 @@ public class MyMazeGenerator  extends AMazeGenerator {
         return goalPos;
     }
 
+    /**
+     * this method mainly in use when we even rows or numbers and we need to ensure the that there is a path to a goal position.
+     * @param myMaze
+     * @param goalPos
+     */
     private void breakGoal(Maze myMaze, Position goalPos) {
         myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex());
         myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-1);
-        /*if( myMaze.getColNum() > 2 && myMaze.getRowNum() > 2){
-            myMaze.setCell0(goalPos.getRowIndex(), goalPos.getColIndex()-2);}*/
     }
 
     private Position genStart(Maze myMaze) {
@@ -56,6 +68,12 @@ public class MyMazeGenerator  extends AMazeGenerator {
         return  startPos;
     }
 
+    /**
+     * method receives a currWall which separated 2 cells and checks if the 2 cells
+     * @param myMaze
+     * @param currWall
+     * @return a Position in case the separated cell is not part of the maze, in case it is, which means both cells are alreay part of the maze return null.
+     */
     private Position findSeparatedCell(Maze myMaze, Position currWall) { // returns the neighbor cell that is not part of the maz, if exist
         int currRow = currWall.getRowIndex();
         int currCol = currWall.getColIndex();
@@ -113,6 +131,12 @@ public class MyMazeGenerator  extends AMazeGenerator {
         return wallsList;
     }
 
+    /**
+     * init all Maze Cells to 2 inorder to indicate that they are not part of the Maze (from Prim's algorithm). in addition set walls that can be break to 3.
+     * @param rows
+     * @param columns
+     * @return int[][]
+     */
     private int[][] generateGrid(int rows, int columns) {
         int[][] gridTable = new int[rows][columns];
         for (int i = 0; i < rows; i++) {
@@ -126,7 +150,6 @@ public class MyMazeGenerator  extends AMazeGenerator {
                 else {
                     gridTable[i][j] = 3;
                 }
-
             }
         }
         return gridTable;

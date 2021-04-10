@@ -8,6 +8,9 @@ import algorithms.search.Solution;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Maze class which include start, goal and mazeTable
+ */
 public class Maze {
     private int rowNum;
     private int colNum;
@@ -23,10 +26,9 @@ public class Maze {
         this.mazeTable = mazeTable;
     }
 
-    public Maze() {
-    }
-    public void print() {
+    public Maze() { };
 
+    public void print() {
         for (int row = 0; row < mazeTable.length; row++) {
             System.out.print("{ ");
             for (int col = 0; col < mazeTable[0].length; col++) {
@@ -42,6 +44,7 @@ public class Maze {
             System.out.println("}");
         }
     }
+
     public void printTest(){
         //System.out.println(Arrays.deepToString(mazeTable));
         for (int i = 0 ; i < rowNum ; i++ ){
@@ -122,6 +125,11 @@ public class Maze {
         return colNum;
     }
 
+    /**
+     * @param row
+     * @param col
+     * @return the cell value(int) and in case the indexes not part of the maze return -1.
+     */
     public int getCellValue(int row, int col) {
         if (row < this.getRowNum() && col < this.getColNum() && row >= 0 && col >=0) {
             return this.mazeTable[row][col];

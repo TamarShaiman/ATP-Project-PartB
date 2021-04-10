@@ -1,12 +1,14 @@
 package algorithms.mazeGenerators;
 
+/**
+ * EmptyMazeGenerator is a type of AMazeGenerator, generate maze without walls.
+ */
 public class EmptyMazeGenerator extends AMazeGenerator{
 
     public Maze generate(int rows, int columns){
         Maze emptyMaze = new Maze();
         emptyMaze.setColNum(columns);
         emptyMaze.setRowNum(rows);
-
         emptyMaze.setMazeTable(genTable(emptyMaze));
         emptyMaze.setStart(genStart(emptyMaze));
         emptyMaze.setGoal(genGoal(emptyMaze));
