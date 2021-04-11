@@ -12,4 +12,5 @@ public class Solution {
     public void setSolutionPath(ArrayList<AState> solutionPath) {
         this.solutionPath = solutionPath;
     }
+
 }
