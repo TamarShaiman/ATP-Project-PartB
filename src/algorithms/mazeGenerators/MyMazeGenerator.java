@@ -12,9 +12,14 @@ public class MyMazeGenerator  extends AMazeGenerator {
         Maze myMaze = new Maze();
         myMaze.setColNum(columns);
         myMaze.setRowNum(rows);
-        int[][] gridTable = generateGrid(rows, columns); //init all Maze Cell to 2 to indicate that they are not part of the Maze (from Prim's algorithm)
-        myMaze.setMazeTable(gridTable);
-        primGenerate(myMaze , rows, columns);
+        if (rows <=3 || columns <=3){
+            genSmallerThan3X3Table(myMaze, rows, columns);
+        }
+        else {
+            int[][] gridTable = generateGrid(rows, columns); //init all Maze Cell to 2 to indicate that they are not part of the Maze (from Prim's algorithm)
+            myMaze.setMazeTable(gridTable);
+            primGenerate(myMaze, rows, columns);
+        }
         return myMaze;
     }
 

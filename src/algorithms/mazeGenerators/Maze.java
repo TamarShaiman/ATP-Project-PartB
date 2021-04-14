@@ -8,15 +8,13 @@ import algorithms.search.Solution;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Maze class which include start, goal and mazeTable
- */
 public class Maze {
     private int rowNum;
     private int colNum;
     private Position start;
     private Position goal;
     private int[][] mazeTable;
+    //private Solution solution; //TODO delete after tests
 
     public Maze(int rowNum, int colNum, Position start, Position goal, int[][] mazeTable) {
         this.rowNum = rowNum;
@@ -26,32 +24,16 @@ public class Maze {
         this.mazeTable = mazeTable;
     }
 
-    public Maze() { };
-
-    public void print() {
-        for (int row = 0; row < mazeTable.length; row++) {
-            System.out.print("{ ");
-            for (int col = 0; col < mazeTable[0].length; col++) {
-                if (row == start.getRowIndex() && col == start.getColIndex()) // if the position is the start - mark with S
-                    System.out.print("S ");
-                else {
-                    if  (row == goal.getRowIndex() && col == goal.getColIndex()) // if the position is the goal - mark with E
-                        System.out.print("E ");
-                    else
-                        System.out.print(mazeTable[row][col] + " ");
-                }
-            }
-            System.out.println("}");
-        }
+    public Maze() {
     }
 
-    public void printTest(){
+    public void print(){
         //System.out.println(Arrays.deepToString(mazeTable));
         for (int i = 0 ; i < rowNum ; i++ ){
             System.out.print("{ ");
             for (int j = 0 ; j < colNum ; j++){
-                System.out.print(mazeTable[i][j] + " ");
-/*                if (mazeTable[i][j] == 0){
+//                System.out.print(mazeTable[i][j]);
+                if (mazeTable[i][j] == 0){
                     if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
                         System.out.print("S ");
                     }
@@ -64,7 +46,7 @@ public class Maze {
                 }
                 else{
                     System.out.print("█ "); //TODO: change back to 1
-                }*/
+                }
             }
             System.out.println("}");
             //System.out.println(); //ends the line after each row
@@ -125,11 +107,6 @@ public class Maze {
         return colNum;
     }
 
-    /**
-     * @param row
-     * @param col
-     * @return the cell value(int) and in case the indexes not part of the maze return -1.
-     */
     public int getCellValue(int row, int col) {
         if (row < this.getRowNum() && col < this.getColNum() && row >= 0 && col >=0) {
             return this.mazeTable[row][col];
@@ -139,4 +116,41 @@ public class Maze {
         }
     }
 
+/*    public void setSolution(Solution solution) { //TODO delete after tests
+        this.solution = solution;
+    }*/
+
+    /*public void printWithSolution(){ //TODO delete after tests
+        //System.out.println(Arrays.deepToString(mazeTable));
+        for (int i = 0 ; i < rowNum ; i++ ){
+            System.out.print("{ ");
+            for (int j = 0 ; j < colNum ; j++){
+//                System.out.print(mazeTable[i][j]);
+                if (mazeTable[i][j] == 0){
+                    if (searchNodeInSolution(i,j) == true){
+                        System.out.print("O ");
+                    }
+                    else if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
+                        System.out.print("S ");
+                    }
+                    else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j){
+                        System.out.print("E ");
+                    }
+                    else{
+                        System.out.print(". "); //TODO: change back to 0
+                    }
+                }
+                else{
+                    System.out.print("█ "); //TODO: change back to 1
+                }
+            }
+            System.out.println("}");
+            //System.out.println(); //ends the line after each row
+        }
+    }
+
+    private boolean searchNodeInSolution(int i, int j) { //TODO delete after tests
+
+        return this.solution.getSolutionPath().contains(new MazeState(new Position(i,j)));
+    }*/
 }
