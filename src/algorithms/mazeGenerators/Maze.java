@@ -149,13 +149,17 @@ public class Maze {
      */
     private void PosToByteInsertArr(byte[] arr, Position position, int index) {
         int border = getBorder(position);
-        IntToByteInsertArr(arr,border,index);
+        while (border > 0) {        // insert the border bytes to arr
+            int binNum = (border % 2);
+            arr[index++] = (byte)binNum;
+            border = border / 2;
+        }
         if (border%2 == 0)
         {
-            IntToByteInsertArr(arr, position.getColIndex(),index+2);
+            IntToByteInsertArr(arr, position.getColIndex(),index);
         }
         else{
-            IntToByteInsertArr(arr, position.getRowIndex(),index+2);
+            IntToByteInsertArr(arr, position.getRowIndex(),index);
         }
     }
 
