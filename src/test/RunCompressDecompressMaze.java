@@ -5,15 +5,21 @@ import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
 public class RunCompressDecompressMaze {
     public static void main(String[] args) {
-        String mazeFileName = "savedMaze.maze";
+        String mazeFileName = "savedMaze.txt";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
         Maze maze = mazeGenerator.generate(10, 10); //Generate new maze
         try {
 // save maze to a file
             OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
             out.write(maze.toByteArray());
+           // System.out.println(out.toString());
+           // out.write("10101".getBytes(StandardCharsets.UTF_8));
+            System.out.println(out.toString());
             out.flush();
             out.close();
         } catch (IOException e) {
@@ -29,10 +35,10 @@ public class RunCompressDecompressMaze {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*Maze loadedMaze = new Maze(savedMazeBytes);
+        Maze loadedMaze = new Maze(savedMazeBytes);
         boolean areMazesEquals =
                 Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
         System.out.println(String.format("Mazes equal: %s",areMazesEquals));
-//maze should be equal to loadedMaze*/
+//maze should be equal to loadedMaze
     }
 }

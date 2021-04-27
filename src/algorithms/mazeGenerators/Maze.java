@@ -26,6 +26,52 @@ public class Maze {
 
     public Maze() {
     }
+    public Maze(byte[] b) {
+        this.rowNum = convertByteArrToInt(b, 0);
+        this.colNum = convertByteArrToInt(b, 10);
+        this.start = convertByteArrToPos(b, 20);
+        this.goal =  convertByteArrToPos(b, 32);
+        this.mazeTable = convertByteArrToMazeTable( b, 44);
+    }
+
+    private int[][] convertByteArrToMazeTable(byte[] b, int i) {
+        int[][] table = new int[this.getRowNum()][this.getColNum()];
+        for (int j = 0; j < this.getRowNum(); j++) {
+            for (int k = 0; k < this.getColNum(); k++) {
+                table[j][k] = b[i];
+                i++;
+            }
+        }
+        return table;
+    }
+
+    private Position convertByteArrToPos(byte[] b, int i) {
+        int num = convertByteArrToInt(b, i);
+        int border = 0;
+        int j = 0 ;
+        while(j != 2) {
+            border += b[i + j] * Math.pow(2, 10 - j);
+            j++;
+        }
+        return createPosBorder(border, num);
+    }
+
+    private Position createPosBorder(int border, int num) {
+        if (border == 0){return new Position(0, num );}
+        else if (border == 1){return new Position(num,this.getColNum()-1);}
+        else if (border == 2){return new Position(this.getRowNum()-1,num );}
+        else if (border == 3){return new Position(num,0 );}
+        else return null;
+
+    }
+
+    private int convertByteArrToInt(byte[] b, int index) {
+        int num=0;
+        for (int j = 0; j < 10; j++) {
+            num += b[index+j]*Math.pow(2,10-j);
+        }
+        return num;
+    }
 
     public void print(){
         //System.out.println(Arrays.deepToString(mazeTable));
