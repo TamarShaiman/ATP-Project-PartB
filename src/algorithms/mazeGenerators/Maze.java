@@ -116,7 +116,8 @@ public class Maze {
         }
     }
     public byte[] toByteArray(){
-        byte[] arr = new byte[(this.getColNum()-1)*(this.getRowNum()-1) +44];
+        byte[] arr = new byte[(this.getColNum())*(this.getRowNum()) + 44];
+        Arrays.fill( arr, (byte) 0 );
         initMeteDataArr(arr); // insert row num, col num, start position and goal position;
         mazeTableToByteArr(arr,44); // insert the maze table to the byte arr
         return arr;
@@ -129,16 +130,17 @@ public class Maze {
         for (int i = 0 ; i < rowNum ; i++ ) {
             for (int j = 0; j < colNum; j++) {
                 num = getCellValue(i, j);
-                arr[ind++] = (byte)num;
+                arr[ind] = (byte)num;
+                ind++;
             }
         }
     }
 
     private void initMeteDataArr(byte[] arr) {
-        IntToByteInsertArr(arr, this.getRowNum(),0);    // insert RowNum
-        IntToByteInsertArr(arr, this.getColNum(),10);    // insert ColNum
-        PosToByteInsertArr(arr, this.getStartPosition(),20);    // insert StartPos
-        PosToByteInsertArr(arr, this.getGoalPosition(),32);     // insert GoalPos
+        IntToByteInsertArr(arr, this.getRowNum(),9);    // insert RowNum
+        IntToByteInsertArr(arr, this.getColNum(),19);    // insert ColNum
+        PosToByteInsertArr(arr, this.getStartPosition(),31);    // insert StartPos
+        PosToByteInsertArr(arr, this.getGoalPosition(),43);     // insert GoalPos
     }
 
     /**
@@ -149,17 +151,13 @@ public class Maze {
      */
     private void PosToByteInsertArr(byte[] arr, Position position, int index) {
         int border = getBorder(position);
-        while (border > 0) {        // insert the border bytes to arr
-            int binNum = (border % 2);
-            arr[index++] = (byte)binNum;
-            border = border / 2;
-        }
+        IntToByteInsertArr(arr, border,index);
         if (border%2 == 0)
         {
-            IntToByteInsertArr(arr, position.getColIndex(),index);
+            IntToByteInsertArr(arr, position.getColIndex(),index-2);
         }
         else{
-            IntToByteInsertArr(arr, position.getRowIndex(),index);
+            IntToByteInsertArr(arr, position.getRowIndex(),index-2);
         }
     }
 
@@ -173,15 +171,22 @@ public class Maze {
 
     private void IntToByteInsertArr(byte[] arr, int num, int index) {
         int ind = index;
+        byte[] arrTemp = new byte[10];
         // Number should be positive
-        while (num > 0) {
+        while (num > 0 && ind > -1) {
             int binNum = (num % 2);
-            arr[ind++] = (byte)binNum;
+            arr[ind--] = (byte)binNum;
             num = num / 2;
         }
-        // Padding with 0
+        /*for (int i = ind-1; i > -1; i--) {
+            arr[index] = arrTemp[i];
+            index--;
+        }*/
+        /*// Padding with 0
         while(ind<10){
-            arr[ind++] = (byte)0;
-        }
+            arr[index] = (byte)0;
+            index++;
+            ind++;
+        }*/
     }
 }
