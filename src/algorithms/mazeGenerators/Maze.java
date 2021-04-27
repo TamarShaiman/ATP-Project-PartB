@@ -115,42 +115,69 @@ public class Maze {
             return -1;
         }
     }
+    public byte[] toByteArray(){
+        byte[] arr = new byte[(this.getColNum()-1)*(this.getRowNum()-1) +44];
+        initMeteDataArr(arr); // insert row num, col num, start position and goal position;
+        mazeTableToByteArr(arr,44); // insert the maze table to the byte arr
+        return arr;
 
-/*    public void setSolution(Solution solution) { //TODO delete after tests
-        this.solution = solution;
-    }*/
+    }
 
-    /*public void printWithSolution(){ //TODO delete after tests
-        //System.out.println(Arrays.deepToString(mazeTable));
-        for (int i = 0 ; i < rowNum ; i++ ){
-            System.out.print("{ ");
-            for (int j = 0 ; j < colNum ; j++){
-//                System.out.print(mazeTable[i][j]);
-                if (mazeTable[i][j] == 0){
-                    if (searchNodeInSolution(i,j) == true){
-                        System.out.print("O ");
-                    }
-                    else if (this.getStartPosition().getRowIndex() == i && this.getStartPosition().getColIndex() == j){
-                        System.out.print("S ");
-                    }
-                    else if (this.getGoalPosition().getRowIndex() == i && this.getGoalPosition().getColIndex() == j){
-                        System.out.print("E ");
-                    }
-                    else{
-                        System.out.print(". "); //TODO: change back to 0
-                    }
-                }
-                else{
-                    System.out.print("█ "); //TODO: change back to 1
-                }
+    private void mazeTableToByteArr(byte[] arr, int index) {
+        int ind = index;
+        int num;
+        for (int i = 0 ; i < rowNum ; i++ ) {
+            for (int j = 0; j < colNum; j++) {
+                num = getCellValue(i, j);
+                arr[ind++] = (byte)num;
             }
-            System.out.println("}");
-            //System.out.println(); //ends the line after each row
         }
     }
 
-    private boolean searchNodeInSolution(int i, int j) { //TODO delete after tests
+    private void initMeteDataArr(byte[] arr) {
+        IntToByteInsertArr(arr, this.getRowNum(),0);    // insert RowNum
+        IntToByteInsertArr(arr, this.getColNum(),10);    // insert ColNum
+        PosToByteInsertArr(arr, this.getStartPosition(),20);    // insert StartPos
+        PosToByteInsertArr(arr, this.getGoalPosition(),32);     // insert GoalPos
+    }
 
-        return this.solution.getSolutionPath().contains(new MazeState(new Position(i,j)));
-    }*/
+    /**
+     * @param arr
+     * @param  position start & goal positions are always on the borders/edges of the maze
+     * border space will be only 2 bytes.
+     * similarity to clock: Up-00,Right-01,Bottom-10,Left-11
+     */
+    private void PosToByteInsertArr(byte[] arr, Position position, int index) {
+        int border = getBorder(position);
+        IntToByteInsertArr(arr,border,index);
+        if (border%2 == 0)
+        {
+            IntToByteInsertArr(arr, position.getColIndex(),index+2);
+        }
+        else{
+            IntToByteInsertArr(arr, position.getRowIndex(),index+2);
+        }
+    }
+
+    private int getBorder(Position position) {
+       if (position.getRowIndex() == 0){return 0;}  // UP-00
+       else if (position.getRowIndex() == this.getRowNum()-1){return 2;}    // Bottom-10
+       else if (position.getColIndex() == this.getColNum()-1){return 1;}    // Right-01
+       else if (position.getColIndex() == 0){return 3;}     // Left-11
+       return -1;
+    }
+
+    private void IntToByteInsertArr(byte[] arr, int num, int index) {
+        int ind = index;
+        // Number should be positive
+        while (num > 0) {
+            int binNum = (num % 2);
+            arr[ind++] = (byte)binNum;
+            num = num / 2;
+        }
+        // Padding with 0
+        while(ind<10){
+            arr[ind++] = (byte)0;
+        }
+    }
 }
