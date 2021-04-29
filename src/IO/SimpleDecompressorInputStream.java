@@ -19,26 +19,23 @@ public class SimpleDecompressorInputStream extends InputStream {
     public int read(byte b[]) throws IOException {
         int resInd = 0;
         int inInd = 0;
-        int size = 0;
-        byte[] input = in.readAllBytes();
-        for (int j = 0; j < input.length; j++) {
-            size += (int)input[j];
-        }
-        byte[] res = new byte[size];
+        int len = b.length;
+        //b = new byte[len];
 
-        for (int j = 0; j < input.length; j++) {
-            for (int i = 0; i < input[j]; i++) {
+        byte[] compressedData = in.readAllBytes();
+
+        for (int j = 0; j < compressedData.length; j++) {
+            for (int i = 0; i < compressedData[j]; i++) {
                 if (j % 2 == 0) {
-                    res[resInd] = 0;
+                    b[resInd] = 0;
                 }
                 else{
-                    res[resInd] = 1;
+                    b[resInd] = 1;
                 }
                 resInd++;
             }
         }
-        b = res;
-        return read(b, 0, b.length);
+        return len;
     }
 
 

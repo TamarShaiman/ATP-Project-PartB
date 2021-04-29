@@ -46,13 +46,10 @@ public class Maze {
     }
 
     private Position convertByteArrToPos(byte[] b, int i) {
-        int num = convertByteArrToInt(b, i);
+        int num = convertByteArrToInt(b, i); //ind number - calculated from 10 first bits
         int border = 0;
-        int j = 0 ;
-        while(j != 2) {
-            border += b[i + j] * Math.pow(2, 10 - j);
-            j++;
-        }
+        border += b[i + 10] * Math.pow(2, 1);
+        border += b[i + 11] * Math.pow(2, 0);
         return createPosBorder(border, num);
     }
 
@@ -68,7 +65,7 @@ public class Maze {
     private int convertByteArrToInt(byte[] b, int index) {
         int num=0;
         for (int j = 0; j < 10; j++) {
-            num += b[index+j]*Math.pow(2,10-j);
+            num += b[index+j]*Math.pow(2,10-j-1);
         }
         return num;
     }
