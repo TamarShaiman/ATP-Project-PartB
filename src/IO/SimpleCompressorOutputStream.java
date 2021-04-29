@@ -47,15 +47,17 @@ public class SimpleCompressorOutputStream extends OutputStream {
                 }
                 counter = 1;
             }
-            //last iteration
-            if (b[b.length-2] == b[b.length-1]){
-                res[resInd - 1] ++ ;
-            }
-            else{
-                res[resInd] = 1;
-            }
+
+        }
+        //last iteration
+        if (b[b.length-2] == b[b.length-1]){
+            res[resInd - 1] ++ ;
+        }
+        else{
+            res[resInd] = 1;
         }
         res = removeZeroes(res);
+        System.out.println("Compressor len arr:"+ res.length);
         System.out.println(Arrays.toString(res));
         out.write(res);
     }

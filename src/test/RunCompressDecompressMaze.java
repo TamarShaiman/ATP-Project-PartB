@@ -1,6 +1,8 @@
 package test;
 import IO.MyCompressorOutputStream;
 import IO.MyDecompressorInputStream;
+import IO.SimpleCompressorOutputStream;
+import IO.SimpleDecompressorInputStream;
 import algorithms.mazeGenerators.AMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
@@ -10,15 +12,15 @@ import java.util.Arrays;
 
 public class RunCompressDecompressMaze {
     public static void main(String[] args) {
-        String mazeFileName = "savedMaze.txt";
+        String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
-        Maze maze = mazeGenerator.generate(10, 10); //Generate new maze
+        Maze maze = mazeGenerator.generate(2, 2); //Generate new maze
         try {
 // save maze to a file
-            OutputStream out = new MyCompressorOutputStream(new FileOutputStream(mazeFileName));
+            OutputStream out = new SimpleCompressorOutputStream(new FileOutputStream(mazeFileName));
             out.write(maze.toByteArray());
-           // System.out.println(out.toString());
-           // out.write("10101".getBytes(StandardCharsets.UTF_8));
+            //System.out.println(out.toString());
+            //out.write("10101".getBytes(StandardCharsets.UTF_8));
             System.out.println(out.toString());
             out.flush();
             out.close();
@@ -28,16 +30,17 @@ public class RunCompressDecompressMaze {
         byte savedMazeBytes[] = new byte[0];
         try {
 //read maze from file
-            InputStream in = new MyDecompressorInputStream(new FileInputStream(mazeFileName));
+            InputStream in = new SimpleDecompressorInputStream(new FileInputStream(mazeFileName));
+            //System.out.println("SimpleDecompressorInputStream");
             savedMazeBytes = new byte[maze.toByteArray().length];
             in.read(savedMazeBytes);
             in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("comparing");
         Maze loadedMaze = new Maze(savedMazeBytes);
-        boolean areMazesEquals =
-                Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
+        boolean areMazesEquals = Arrays.equals(loadedMaze.toByteArray(),maze.toByteArray());
         System.out.println(String.format("Mazes equal: %s",areMazesEquals));
 //maze should be equal to loadedMaze
     }
