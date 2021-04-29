@@ -25,16 +25,23 @@ public class SimpleDecompressorInputStream extends InputStream {
         byte[] compressedData = in.readAllBytes();
 
         for (int j = 0; j < compressedData.length; j++) {
-            for (int i = 0; i < compressedData[j]; i++) {
-                if (j % 2 == 0) {
-                    b[resInd] = 0;
-                }
-                else{
-                    b[resInd] = 1;
-                }
-                resInd++;
+            int num = compressedData[j];
+            if (num < 0){
+                num = 256 + num ;
+            }
+            if (j == 0 && compressedData[0] == 0){
+                continue;
+            }
+            for (int i = 0; i < num; i++) {
+                    if (j % 2 == 0) {
+                        b[resInd] = 0;
+                    } else {
+                        b[resInd] = 1;
+                    }
+                    resInd++;
             }
         }
+
         return len;
     }
 

@@ -20,45 +20,34 @@ public class SimpleCompressorOutputStream extends OutputStream {
     @Override
     public void write(byte[] b) throws IOException {
         int counter = 1;
-        byte[] res = new byte[b.length]; //TODO: delete length
+        byte[] res = new byte[b.length];
         int resInd = 0;
-        if(b[0] == 49){
+        if(b[0] == (byte)1){ //4 means 1 in ascii
             res[0] = (byte)0;
             resInd ++;
         }
         for (int i = 1; i < b.length; i++) {
-            if (b[i-1] == b[i]){
-                counter ++;
-            }
-            else{
-                if (counter <=255){
-                    res[resInd] = (byte)counter;
+            if (b[i - 1] == b[i]) {
+                counter++;
+            } else {
+                if (counter <= 255) {
+                    res[resInd] = (byte) counter;
                     resInd++;
-                }
-                else {
+                } else {
                     while (counter > 255) {
                         res[resInd] = (byte) 255;
                         res[resInd + 1] = (byte) 0;
                         resInd += 2;
                         counter -= 255;
                     }
-                    res[resInd] = (byte)(counter);
-                    resInd ++;
+                    res[resInd] = (byte) (counter);
+                    resInd++;
                 }
                 counter = 1;
             }
-
         }
-        //last iteration
-        if (b[b.length-2] == b[b.length-1]){
-            res[resInd - 1] ++ ;
-        }
-        else{
-            res[resInd] = 1;
-        }
+        res[resInd] = (byte) counter;
         res = removeZeroes(res);
-        System.out.println("Compressor len arr:"+ res.length);
-        System.out.println(Arrays.toString(res));
         out.write(res);
     }
 
