@@ -163,7 +163,7 @@ public class Maze {
         Arrays.fill( arr, (byte) 0 );
         initMeteDataArr(arr); // insert row num, col num, start position and goal position;
         mazeTableToByteArr(arr,44); // insert the maze table to the byte arr
-        System.out.println("Byte arr Maze "+ arr.length);
+        //System.out.println("Byte arr Maze "+ arr.length);
         return arr;
 
     }
