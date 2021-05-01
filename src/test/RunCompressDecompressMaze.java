@@ -21,7 +21,7 @@ public class RunCompressDecompressMaze {
             out.write(maze.toByteArray());
             //System.out.println(out.toString());
             //out.write("10101".getBytes(StandardCharsets.UTF_8));
-            System.out.println(out.toString());
+           // System.out.println(out.toString());
             out.flush();
             out.close();
         } catch (IOException e) {
