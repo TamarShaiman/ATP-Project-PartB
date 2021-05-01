@@ -42,7 +42,10 @@ public class Server {
         } catch (IOException var4) {
             //TODO: decide how to handle exceptions
         }
+    }
 
+    private void startInner(){
+        
     }
 
     private void handleClient(Socket clientSocket) {
