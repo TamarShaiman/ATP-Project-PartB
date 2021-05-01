@@ -19,10 +19,16 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        this.threadPool = Executors.newFixedThreadPool(10); //TODO: part C - configuration file integration
+        this.threadPool = Executors.newFixedThreadPool(2); //TODO: part C - configuration file integration
     }
 
     public void start() {
+        new Thread(() -> {
+            this.startInner();
+        }).start();
+    }
+
+    private void startInner(){
         try {
             ServerSocket serverSocket = new ServerSocket(this.port);
             serverSocket.setSoTimeout(this.listeningIntervalMS);
@@ -30,11 +36,12 @@ public class Server {
             while(!this.stop) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    this.threadPool.submit(() -> {
+                    this.threadPool.execute(() -> {
                         this.handleClient(clientSocket);
                     });
                 } catch (SocketTimeoutException var3) {
                     //TODO: decide how to handle exceptions
+                    System.out.println("no client connected");
                 }
             }
             serverSocket.close();
@@ -42,10 +49,6 @@ public class Server {
         } catch (IOException var4) {
             //TODO: decide how to handle exceptions
         }
-    }
-
-    private void startInner(){
-        
     }
 
     private void handleClient(Socket clientSocket) {

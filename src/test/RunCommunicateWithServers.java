@@ -17,15 +17,19 @@ public class RunCommunicateWithServers {
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
         //Starting servers
+
+        //new Thread(()->{
         solveSearchProblemServer.start();
-        mazeGeneratingServer.start();
+        //mazeGeneratingServer.start();
+       // }).start();
+
         //stringReverserServer.start();
         //Communicating with servers
-        CommunicateWithServer_MazeGenerating();
+        //CommunicateWithServer_MazeGenerating();
         CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
         //Stopping all servers
-        mazeGeneratingServer.stop();
+        //mazeGeneratingServer.stop();
         solveSearchProblemServer.stop();
         //stringReverserServer.stop();
     }
@@ -39,7 +43,7 @@ public class RunCommunicateWithServers {
                         ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
-                        int[] mazeDimensions = new int[]{50, 50};
+                        int[] mazeDimensions = new int[]{10, 10};
                         toServer.writeObject(mazeDimensions); //send maze dimensions to server
                         toServer.flush();
                         byte[] compressedMaze = (byte[]) fromServer.readObject();
@@ -70,7 +74,7 @@ public class RunCommunicateWithServers {
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
                         MyMazeGenerator mg = new MyMazeGenerator();
-                        Maze maze = mg.generate(50, 50);
+                        Maze maze = mg.generate(10, 10);
                         maze.print();
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();
@@ -94,7 +98,7 @@ public class RunCommunicateWithServers {
         }
     }
 
-    private static void CommunicateWithServer_StringReverser() {
+/*    private static void CommunicateWithServer_StringReverser() {
         try {
             Client client = new Client(InetAddress.getLocalHost(), 5402, new
                     IClientStrategy() {
@@ -121,5 +125,5 @@ public class RunCommunicateWithServers {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
