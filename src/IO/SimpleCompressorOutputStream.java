@@ -19,7 +19,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     @Override
     public void write(byte[] b) throws IOException {
-        //System.out.println("hello from write");
         int counter = 1;
         byte[] res = new byte[b.length];
         int resInd = 0;
@@ -50,8 +49,6 @@ public class SimpleCompressorOutputStream extends OutputStream {
         res[resInd] = (byte) counter;
         res = removeZeroes(res);
         out.write(res);
-        //System.out.println("hello from end of write");
-
     }
 
     private byte[] removeZeroes(byte[] res) {
