@@ -17,7 +17,6 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             int[] mazeSizes = (int[]) fromClient.readObject();
             MyMazeGenerator MMG = new MyMazeGenerator();
             Maze maze = MMG.generate(mazeSizes[0], mazeSizes[1]);
-            byte[] mazeToByteArray = maze.toByteArray();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             try {
@@ -29,7 +28,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
                 e.printStackTrace();                    //TODO: decide how to handle exceptions
 
             }
-            toClient.writeObject(outputStream);
+            toClient.writeObject(outputStream.toByteArray());
             toClient.flush();
             fromClient.close();
             toClient.close();

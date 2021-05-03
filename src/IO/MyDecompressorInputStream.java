@@ -12,6 +12,8 @@ public class MyDecompressorInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
+        System.out.println("hello from MyDecompressorInputStream");
+
         return 0;
     }
 }

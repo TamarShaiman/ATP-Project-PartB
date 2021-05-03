@@ -1,6 +1,8 @@
 package algorithms.search;
 
-public class AState {
+import java.io.Serializable;
+
+public class AState implements Serializable {
     private String state;
     private double cost = 0;
     private AState cameFrom;

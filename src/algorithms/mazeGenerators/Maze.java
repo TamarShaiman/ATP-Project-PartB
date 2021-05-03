@@ -5,10 +5,11 @@ import algorithms.search.ISearchable;
 import algorithms.search.MazeState;
 import algorithms.search.Solution;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Maze {
+public class Maze implements Serializable {
     private int rowNum;
     private int colNum;
     private Position start;

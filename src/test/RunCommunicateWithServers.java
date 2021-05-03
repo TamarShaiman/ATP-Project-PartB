@@ -1,6 +1,8 @@
 package test;
 
 import IO.MyDecompressorInputStream;
+import IO.SimpleDecompressorInputStream;
+import IO.SimpleCompressorOutputStream;
 import Server.*;
 import Client.*;
 import algorithms.mazeGenerators.*;
@@ -18,25 +20,21 @@ public class RunCommunicateWithServers {
         //Server stringReverserServer = new Server(5402, 1000, new ServerStrategyStringReverser());
         //Starting servers
 
-        //new Thread(()->{
         solveSearchProblemServer.start();
-        //mazeGeneratingServer.start();
-       // }).start();
+        mazeGeneratingServer.start();
 
-        //stringReverserServer.start();
         //Communicating with servers
-        //CommunicateWithServer_MazeGenerating();
+        CommunicateWithServer_MazeGenerating();
         CommunicateWithServer_SolveSearchProblem();
-        //CommunicateWithServer_StringReverser();
+
         //Stopping all servers
-        //mazeGeneratingServer.stop();
+        mazeGeneratingServer.stop();
         solveSearchProblemServer.stop();
-        //stringReverserServer.stop();
     }
 
     private static void CommunicateWithServer_MazeGenerating() {
         try {
-            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() { //TODO: verify what should be instead of clientStrategyTemp
+            Client client = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
                 @Override
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
                     try {
@@ -48,7 +46,8 @@ public class RunCommunicateWithServers {
                         toServer.flush();
                         byte[] compressedMaze = (byte[]) fromServer.readObject();
                         //read generated maze (compressed with MyCompressor) from server
-                        InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
+//                        InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze)); //TODO: change to MyDec ~~~
+                        InputStream is = new SimpleDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
                         byte[] decompressedMaze = new byte[1000 /*CHANGE SIZE ACCORDING TO YOU MAZE SIZE*/]; //allocating byte[] for the decompressed maze -
                         is.read(decompressedMaze); //Fill decompressedMaze with bytes
                         Maze maze = new Maze(decompressedMaze);

@@ -41,7 +41,7 @@ public class Server {
                     });
                 } catch (SocketTimeoutException var3) {
                     //TODO: decide how to handle exceptions
-                    System.out.println("no client connected");
+                    System.out.println("no client connected"); //TODO: delete
                 }
             }
             serverSocket.close();
