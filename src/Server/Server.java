@@ -1,9 +1,12 @@
 package Server;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,7 +22,19 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        this.threadPool = Executors.newFixedThreadPool(2); //TODO: part C - configuration file integration
+        try (InputStream input = new FileInputStream("resources/config.properties")) {
+
+            Properties prop = new Properties();
+
+            // load a properties file
+            prop.load(input);
+
+            // get the property value and print it out
+            int threadPoolSize = Integer.parseInt(prop.getProperty("threadPoolSize"));
+            this.threadPool = Executors.newFixedThreadPool(threadPoolSize);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void start() {
