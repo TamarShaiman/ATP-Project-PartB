@@ -12,8 +12,29 @@ public class MyDecompressorInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
-        System.out.println("hello from MyDecompressorInputStream");
-
         return 0;
     }
+
+    @Override
+    public int read(byte b[]) throws IOException {
+        //System.out.println("hello from read");
+        int index = 0;
+        int len = b.length;
+        byte[] compressedData = in.readAllBytes();
+
+        for (int j = 0; j < compressedData.length; j++) {
+            int num = compressedData[j];
+            if (num < 0){
+                num = 256 + num ;
+            }
+            while(num > 0){
+                byte val = (byte) (num%2);
+                b[index++] = val;
+                num= num/2;
+            }
+        }
+
+        return len;
+    }
+
 }
