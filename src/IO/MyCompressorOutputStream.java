@@ -31,7 +31,7 @@ public class MyCompressorOutputStream extends OutputStream {
 
     private byte getBinToDec(byte[] b, int i) {
         int sum = 0;
-        for (int j = 7; j > 0; j--) {
+        for (int j = 7; j >= 0; j--) {
             if (b[i+j] == (byte)1){
                 sum += Math.pow(2, j);
             }

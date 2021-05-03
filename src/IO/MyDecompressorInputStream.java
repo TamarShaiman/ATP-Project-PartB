@@ -27,14 +27,14 @@ public class MyDecompressorInputStream extends InputStream {
             if (num < 0){
                 num = 256 + num ;
             }
-            while(num > 0){
+            int currInd = 0;
+            while(num > 0 || currInd < 8){
                 byte val = (byte) (num%2);
                 b[index++] = val;
                 num= num/2;
+                currInd++;
             }
         }
-
         return len;
     }
-
 }
