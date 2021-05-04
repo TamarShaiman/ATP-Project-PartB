@@ -14,6 +14,12 @@ import java.util.ArrayList;
 
 public class RunCommunicateWithServers {
     public static void main(String[] args) {
+       /* Configurations config = Configurations.getInstance();
+        config.AddProperty("mazeGeneratingAlgorithm", "MyMazeGenerator");
+        //prop.setProperty("mazeGeneratingAlgorithm", "MyMazeGenerator");
+        config.AddProperty("mazeSearchingAlgorithm", "BestFirstSearch");
+        config.AddProperty("compressionAlgorithm", "SimpleCompressorOutputStream");*/
+
         //Initializing servers
         Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
