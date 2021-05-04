@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class RunCompressDecompressMaze {
     public static void main(String[] args) {
-        String mazeFileName = "savedMaze.txt";
+        String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
         Maze maze = mazeGenerator.generate(2, 2); //Generate new maze
         try {

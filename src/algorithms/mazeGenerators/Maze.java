@@ -85,11 +85,11 @@ public class Maze implements Serializable {
                         System.out.print("E ");
                     }
                     else{
-                        System.out.print(". "); //TODO: change back to 0
+                        System.out.print("0 "); //TODO: change back to 0
                     }
                 }
                 else{
-                    System.out.print("█ "); //TODO: change back to 1
+                    System.out.print("1 "); //TODO: change back to 1
                 }
             }
             System.out.println("}");

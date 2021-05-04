@@ -21,19 +21,19 @@ public class RunCommunicateWithServers {
         config.AddProperty("compressionAlgorithm", "SimpleCompressorOutputStream");*/
 
         //Initializing servers
-        Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
+       // Server mazeGeneratingServer = new Server(5400, 1000, new ServerStrategyGenerateMaze());
         Server solveSearchProblemServer = new Server(5401, 1000, new ServerStrategySolveSearchProblem());
         //Starting servers
 
         solveSearchProblemServer.start();
-        mazeGeneratingServer.start();
+      //  mazeGeneratingServer.start();
 
         //Communicating with servers
-        CommunicateWithServer_MazeGenerating();
+      //  CommunicateWithServer_MazeGenerating();
         CommunicateWithServer_SolveSearchProblem();
 
         //Stopping all servers
-        mazeGeneratingServer.stop();
+      //  mazeGeneratingServer.stop();
         solveSearchProblemServer.stop();
     }
 
@@ -78,7 +78,7 @@ public class RunCommunicateWithServers {
                         ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
                         toServer.flush();
                         MyMazeGenerator mg = new MyMazeGenerator();
-                        Maze maze = mg.generate(10, 10);
+                        Maze maze = mg.generate(2, 2);
                         maze.print();
                         toServer.writeObject(maze); //send maze to server
                         toServer.flush();

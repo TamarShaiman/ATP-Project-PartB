@@ -1,12 +1,10 @@
 package Server;
 
 import IO.MyCompressorOutputStream;
-import IO.SimpleDecompressorInputStream;
 import algorithms.mazeGenerators.*;
 import algorithms.search.*;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Properties;
 
@@ -39,7 +37,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
                 ASearchingAlgorithm searchingAlgorithm = findSearchAlgorith();
                 //BestFirstSearch best = new BestFirstSearch(); // TODO: delete
                  solution = searchingAlgorithm.solve(searchableMaze);
-                 addSolutionToHash(compressedMaze,solution);
+                 saveSolution(compressedMaze,solution);
             }
             else{
                 solution = getSolutionByPath(solutionPath);
@@ -58,12 +56,14 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         Solution solution =(Solution) objectInputStream.readObject();
          return  solution;
     }
-
-    private void addSolutionToHash(byte[] compressedMaze, Solution solution) throws IOException {
+    private void saveSolution(byte[] compressedMaze, Solution solution) throws IOException {
         String fileName = String.valueOf(getSolutionNumber());
-        String finalPath = getTempDirectoryPath()+"/"+fileName+".Solution";
-        FileWriter file = new FileWriter(finalPath);
-        file.write(solution.toString());    //TODO: get solution to string and add the whole solution;
+        String finalPath = getTempDirectoryPath()+fileName+"_"+String.valueOf(System.currentTimeMillis())+".Solution";
+        FileOutputStream fileOut = new FileOutputStream(finalPath);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(solution); //TODO: get solution to string and add the whole solution;
+        out.close();
+        fileOut.close();
         this.hashtableSolutions.put(compressedMaze,finalPath);
         solutionNumber++;
 
