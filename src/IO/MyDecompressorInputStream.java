@@ -28,11 +28,13 @@ public class MyDecompressorInputStream extends InputStream {
                 num = 256 + num ;
             }
             int currInd = 0;
-            while(num > 0 || currInd < 8){
-                byte val = (byte) (num%2);
-                b[index++] = val;
-                num= num/2;
-                currInd++;
+            while((num > 0 || currInd < 8) &&(index< len)){
+
+                    byte val = (byte) (num % 2);
+                    b[index++] = val;
+                    num = num / 2;
+                    currInd++;
+
             }
         }
         return len;
