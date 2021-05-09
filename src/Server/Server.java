@@ -68,7 +68,7 @@ public class Server {
 
     private void handleClient(Socket clientSocket) {
         try {
-            this.strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            this.strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
             this.stop();
         } catch (IOException var3) {

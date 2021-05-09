@@ -24,7 +24,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
 
 
-    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             Solution solution;
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
