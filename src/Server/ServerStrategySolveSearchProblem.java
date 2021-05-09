@@ -1,10 +1,12 @@
 package Server;
 
 import IO.MyCompressorOutputStream;
+import IO.MyDecompressorInputStream;
 import algorithms.mazeGenerators.*;
 import algorithms.search.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 import java.util.Properties;
 
@@ -15,11 +17,41 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     static int solutionNumber = 1;
     String tempDirectoryPath;
-    Hashtable<byte[],String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
+    //Hashtable<byte[],String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
+    Hashtable<String,String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
+    String hashPath = System.getProperty("java.io.tmpdir") + "hashtableSolutions.ser";
+    ObjectOutputStream objectOutputStreamHash;
 
     public ServerStrategySolveSearchProblem() {
         this.tempDirectoryPath = System.getProperty("java.io.tmpdir");
-        this.hashtableSolutions = new Hashtable<>();
+        //this.hashtableSolutions = new Hashtable<>();
+        File hashFile = new File(this.hashPath);
+        try {
+        if (hashFile.exists()){
+            FileInputStream InFile = new FileInputStream(this.hashPath);
+            //InFile = new FileInputStream(this.hashPath);
+            ObjectInputStream from = new ObjectInputStream(InFile);
+            //this.hashtableSolutions = (Hashtable<byte[],String>) from.readObject();
+            this.hashtableSolutions = (Hashtable<String,String>) from.readObject();
+            from.close();
+            InFile.close();
+        }
+        else{
+            //this.hashtableSolutions = new Hashtable<byte[],String>();
+            this.hashtableSolutions = new Hashtable<String,String>();
+        }
+
+        /*FileOutputStream outFile = new FileOutputStream(this.hashPath);
+        this.objectOutputStreamHash = new ObjectOutputStream(outFile);
+        this.objectOutputStreamHash.writeObject(this.hashtableSolutions);*/
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -34,7 +66,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             String solutionPath = getSolutionFromHash(compressedMaze);
             if(solutionPath == null) {
                 SearchableMaze searchableMaze = new SearchableMaze((Maze) maze);
-                ASearchingAlgorithm searchingAlgorithm = findSearchAlgorith();
+                ASearchingAlgorithm searchingAlgorithm = findSearchAlgorithm();
                 //BestFirstSearch best = new BestFirstSearch(); // TODO: delete
                  solution = searchingAlgorithm.solve(searchableMaze);
                  saveSolution(compressedMaze,solution);
@@ -64,8 +96,14 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         out.writeObject(solution); //TODO: get solution to string and add the whole solution;
         out.close();
         fileOut.close();
-        this.hashtableSolutions.put(compressedMaze,finalPath);
+        this.hashtableSolutions.put(ourToString(compressedMaze),finalPath);
+        //this.hashtableSolutions.put(compressedMaze.toString(),finalPath);
+        FileOutputStream fileHash =  new FileOutputStream(this.hashPath);
+        ObjectOutputStream outHash = new ObjectOutputStream(fileHash);
+        outHash.writeObject(this.hashtableSolutions);
         solutionNumber++;
+        outHash.close();
+        //this.objectOutputStreamHash.close();
 
     }
     public static int getSolutionNumber() {
@@ -77,10 +115,18 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     }
 
     private String getSolutionFromHash(byte[] compressedMaze) {
-        if (this.hashtableSolutions.containsKey(compressedMaze)) {
+/*        if (this.hashtableSolutions.containsKey(compressedMaze)) {
             return this.hashtableSolutions.get(compressedMaze);
+        }*/
+        if (this.hashtableSolutions.containsKey(ourToString(compressedMaze))) {
+            return this.hashtableSolutions.get(ourToString(compressedMaze));
         }
         return null;
+    }
+
+    private String ourToString(byte[] compressedMaze) {
+        String s = new String(compressedMaze, StandardCharsets.UTF_8);
+        return s;
     }
 
     private byte[] mazeToCompress(Maze maze) {
@@ -97,7 +143,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         return compressedMaze;
     }
 
-    private ASearchingAlgorithm findSearchAlgorith() {
+    private ASearchingAlgorithm findSearchAlgorithm() {
         ASearchingAlgorithm searchingAlgorithm =  null;
         try (InputStream input = new FileInputStream("resources/config.properties")) {
             Properties prop = new Properties();

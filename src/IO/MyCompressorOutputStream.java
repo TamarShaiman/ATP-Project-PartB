@@ -19,7 +19,7 @@ public class MyCompressorOutputStream extends OutputStream {
     public void write(byte[] b) throws IOException {
         int count = 0;
         int resInd = 0;
-        int newSize = Math.round(b.length/8);
+        int newSize = (int) Math.ceil(b.length/8.0) ;
         byte[] res = new byte[newSize];
         for (int i = 0; i < b.length; i = i+8) {
             byte newNum = getBinToDec(b, i);
@@ -32,8 +32,10 @@ public class MyCompressorOutputStream extends OutputStream {
     private byte getBinToDec(byte[] b, int i) {
         int sum = 0;
         for (int j = 7; j >= 0; j--) {
-            if (b[i+j] == (byte)1){
-                sum += Math.pow(2, j);
+            if (i+j < b.length) {
+                if (b[i + j] == (byte) 1) {
+                    sum += Math.pow(2, j);
+                }
             }
         }
         return (byte)sum;
