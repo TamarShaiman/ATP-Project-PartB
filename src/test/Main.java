@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
-    private static final String resultsFilePath = "results.txt";
+    private static final String resultsFilePath = "results1.txt";
     private static final String logFilePath = "results.log";
     private static int Port_ServerMazeGenerating = getRandomNumber(5000, 6000);
     private static int Port_ServerSearchProblemSolver = getRandomNumber(6001, 7000);
@@ -67,7 +67,7 @@ public class Main {
         {
             message =  String.valueOf(e);
         }
-        appendToFile(String.format("Exception: %s", message),filePath);
+        
         if (e.getStackTrace().length > 1)
         {
             String msg = String.valueOf(e.getStackTrace()[0]);
