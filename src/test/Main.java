@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
-    private static final String resultsFilePath = "results.txt";
-    private static final String logFilePath = "results.log";
+    private static final String resultsFilePath = "results1.txt";
+    private static final String logFilePath = "results1.log";
     private static int Port_ServerMazeGenerating = getRandomNumber(5000, 6000);
     private static int Port_ServerSearchProblemSolver = getRandomNumber(6001, 7000);
     private static int total_test = 0;
@@ -93,7 +93,7 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            //Test_CompressDecompressMaze();
+            Test_CompressDecompressMaze();
 
             Test_CommunicateWithServers();
 
@@ -164,7 +164,7 @@ public class Main {
         mazeGeneratingServer.start();
 
         //CommunicateWithServer_MazeGenerating(counter);
-        //CommunicateWithServer_SolveSearchProblem(counter);
+        CommunicateWithServer_SolveSearchProblem(counter);
 
         Thread[] threads = new Thread[6];
         for (int i = 0; i < threads.length; i++) {
@@ -183,7 +183,7 @@ public class Main {
 
         //Stopping all servers
         mazeGeneratingServer.stop();
-        //solveSearchProblemServer.stop();
+        solveSearchProblemServer.stop();
     }
 
     private static void CommunicateWithServer_MazeGenerating(int i) {

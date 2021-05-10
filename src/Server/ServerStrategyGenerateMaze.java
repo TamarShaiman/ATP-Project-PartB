@@ -1,5 +1,6 @@
 package Server;
 
+import IO.MyCompressorOutputStream;
 import IO.SimpleCompressorOutputStream;
 import algorithms.mazeGenerators.*;
 
@@ -23,7 +24,7 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             try {
-                OutputStream out = new SimpleCompressorOutputStream(outputStream); //TODO: change to myCompressor
+                OutputStream out = new MyCompressorOutputStream(outputStream); //TODO: change to myCompressor
                 out.write(maze.toByteArray());
                 out.flush();
                 out.close();
