@@ -41,10 +41,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             this.hashtableSolutions = new Hashtable<String,String>();
         }
 
-        /*FileOutputStream outFile = new FileOutputStream(this.hashPath);
-        this.objectOutputStreamHash = new ObjectOutputStream(outFile);
-        this.objectOutputStreamHash.writeObject(this.hashtableSolutions);*/
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

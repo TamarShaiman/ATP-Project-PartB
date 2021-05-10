@@ -28,14 +28,14 @@ public class ServerStrategyGenerateMaze implements IServerStrategy {
                 out.flush();
                 out.close();
             } catch (IOException e) {
-                e.printStackTrace();                    //TODO: decide how to handle exceptions
+                e.printStackTrace();
             }
             toClient.writeObject(outputStream.toByteArray());
             toClient.flush();
             fromClient.close();
             toClient.close();
         } catch (Exception var6) {
-            var6.printStackTrace();                    //TODO: decide how to handle exceptions
+            var6.printStackTrace();
 
         }
     }

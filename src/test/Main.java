@@ -163,13 +163,13 @@ public class Main {
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
 
-        //CommunicateWithServer_MazeGenerating(counter);
-        CommunicateWithServer_SolveSearchProblem(counter);
+        CommunicateWithServer_MazeGenerating(counter);
+        //CommunicateWithServer_SolveSearchProblem(counter);
 
         Thread[] threads = new Thread[6];
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new Thread(() -> {
-                CommunicateWithServer_MazeGenerating(counter);
+                CommunicateWithServer_SolveSearchProblem(counter);
             });
             threads[i].start();
         }
