@@ -93,7 +93,7 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            //Test_CompressDecompressMaze();
+            Test_CompressDecompressMaze();
 
             Test_CommunicateWithServers();
 
@@ -110,7 +110,7 @@ public class Main {
     //<editor-fold desc="Test_CompressDecompressMaze">
     private static void Test_CompressDecompressMaze() {
         double averageCompressionRate=0;
-        int size = 5;
+        int size = 50;
         String mazeFileName = "savedMaze.maze";
         AMazeGenerator mazeGenerator = new MyMazeGenerator();
         Maze maze = mazeGenerator.generate(size, size); //Generate new maze
@@ -164,7 +164,7 @@ public class Main {
         mazeGeneratingServer.start();
 
         //CommunicateWithServer_MazeGenerating(counter);
-        //CommunicateWithServer_SolveSearchProblem(counter);
+        CommunicateWithServer_SolveSearchProblem(counter);
 
         Thread[] threads = new Thread[6];
         for (int i = 0; i < threads.length; i++) {
@@ -183,7 +183,7 @@ public class Main {
 
         //Stopping all servers
         mazeGeneratingServer.stop();
-        //solveSearchProblemServer.stop();
+        solveSearchProblemServer.stop();
     }
 
     private static void CommunicateWithServer_MazeGenerating(int i) {

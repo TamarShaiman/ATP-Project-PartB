@@ -166,7 +166,6 @@ public class Maze implements Serializable {
         mazeTableToByteArr(arr,44); // insert the maze table to the byte arr
         //System.out.println("Byte arr Maze "+ arr.length);
         return arr;
-
     }
 
     private void mazeTableToByteArr(byte[] arr, int index) {
