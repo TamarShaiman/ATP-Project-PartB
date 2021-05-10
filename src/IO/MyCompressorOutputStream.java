@@ -16,7 +16,7 @@ public class MyCompressorOutputStream extends OutputStream {
     }
 
     @Override
-    public void write(byte[] b) throws IOException {
+    public void write(byte[] b) throws IOException { //each 8 "bits" will perform as byte
         int count = 0;
         int resInd = 0;
         int newSize = (int) Math.ceil(b.length/8.0) ;
@@ -29,7 +29,7 @@ public class MyCompressorOutputStream extends OutputStream {
         out.write(res);
     }
 
-    private byte getBinToDec(byte[] b, int i) {
+    private byte getBinToDec(byte[] b, int i) {  //algorithm to convert binary number to decimal
         int sum = 0;
         for (int j = 7; j >= 0; j--) {
             if (i+j < b.length) {

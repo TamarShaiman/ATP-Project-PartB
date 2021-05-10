@@ -16,8 +16,7 @@ public class MyDecompressorInputStream extends InputStream {
     }
 
     @Override
-    public int read(byte b[]) throws IOException {
-        //System.out.println("hello from read");
+    public int read(byte b[]) throws IOException { //convert decimal number to binary
         int index = 0;
         int len = b.length;
         byte[] compressedData = in.readAllBytes();

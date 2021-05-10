@@ -12,22 +12,17 @@ public class SimpleDecompressorInputStream extends InputStream {
 
     @Override
     public int read() throws IOException {
-        //System.out.println("hello from wrong read");
-
+        //TODO:
         return 0;
     }
 
     @Override
     public int read(byte b[]) throws IOException {
-        //System.out.println("hello from read");
-
         int resInd = 0;
         int inInd = 0;
         int len = b.length;
-        //b = new byte[len];
 
         byte[] compressedData = in.readAllBytes();
-
         for (int j = 0; j < compressedData.length; j++) {
             int num = compressedData[j];
             if (num < 0){
@@ -45,7 +40,6 @@ public class SimpleDecompressorInputStream extends InputStream {
                     resInd++;
             }
         }
-
         return len;
     }
 

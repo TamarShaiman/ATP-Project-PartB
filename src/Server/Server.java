@@ -23,12 +23,9 @@ public class Server {
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
         try (InputStream input = new FileInputStream("resources/config.properties")) {
-
             Properties prop = new Properties();
-
             // load a properties file
             prop.load(input);
-
             // get the property value and print it out
             int threadPoolSize = Integer.parseInt(prop.getProperty("threadPoolSize"));
             this.threadPool = Executors.newFixedThreadPool(threadPoolSize);
@@ -55,14 +52,13 @@ public class Server {
                         this.handleClient(clientSocket);
                     });
                 } catch (SocketTimeoutException var3) {
-                    //TODO: decide how to handle exceptions
-                    System.out.println("no client connected"); //TODO: delete
+                    //System.out.println("no client connected");
                 }
             }
             serverSocket.close();
             this.threadPool.shutdownNow();
         } catch (IOException var4) {
-            //TODO: decide how to handle exceptions
+
         }
     }
 
@@ -72,7 +68,7 @@ public class Server {
             clientSocket.close();
             this.stop();
         } catch (IOException var3) {
-            //TODO: decide how to handle exceptions
+
         }
 
     }

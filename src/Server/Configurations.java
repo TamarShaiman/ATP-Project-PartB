@@ -27,14 +27,6 @@ public class Configurations {
         properties.getProperty(property);
     }
 
-    /* prop.setProperty("threadPoolSize", "10");
-            prop.setProperty("mazeGeneratingAlgorithm", "MyMazeGenerator");
-            prop.setProperty("mazeSearchingAlgorithm", "BestFirstSearch");
-            prop.setProperty("compressionAlgorithm", "SimpleCompressorOutputStream");
-
-    // save properties to project root folder
-            prop.store(output, null);*/
-
 }
 
 

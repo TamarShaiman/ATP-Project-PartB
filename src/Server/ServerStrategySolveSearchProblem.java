@@ -17,31 +17,25 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
 
     static int solutionNumber = 1;
     String tempDirectoryPath;
-    //Hashtable<byte[],String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
     Hashtable<String,String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
     String hashPath = System.getProperty("java.io.tmpdir") + "hashtableSolutions.ser";
-    //ObjectOutputStream objectOutputStreamHash;
 
     public ServerStrategySolveSearchProblem() {
         this.tempDirectoryPath = System.getProperty("java.io.tmpdir");
-        //this.hashtableSolutions = new Hashtable<>();
         File hashFile = new File(this.hashPath);
         try {
-        if (hashFile.exists()){
-            FileInputStream InFile = new FileInputStream(this.hashPath);
-            //InFile = new FileInputStream(this.hashPath);
-            ObjectInputStream from = new ObjectInputStream(InFile);
-            //this.hashtableSolutions = (Hashtable<byte[],String>) from.readObject();
-            this.hashtableSolutions = (Hashtable<String,String>) from.readObject();
-            from.close();
-            InFile.close();
+            if (hashFile.exists()){
+                FileInputStream InFile = new FileInputStream(this.hashPath);
+                ObjectInputStream from = new ObjectInputStream(InFile);
+                this.hashtableSolutions = (Hashtable<String,String>) from.readObject();
+                from.close();
+                InFile.close();
+            }
+            else{
+                this.hashtableSolutions = new Hashtable<String,String>();
+            }
         }
-        else{
-            //this.hashtableSolutions = new Hashtable<byte[],String>();
-            this.hashtableSolutions = new Hashtable<String,String>();
-        }
-
-        } catch (FileNotFoundException e) {
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +43,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             e.printStackTrace();
         }
     }
-
 
 
     public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
@@ -63,7 +56,6 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             if(solutionPath == null) {
                 SearchableMaze searchableMaze = new SearchableMaze((Maze) maze);
                 ASearchingAlgorithm searchingAlgorithm = findSearchAlgorithm();
-                //BestFirstSearch best = new BestFirstSearch(); // TODO: delete
                  solution = searchingAlgorithm.solve(searchableMaze);
                  saveSolution(compressedMaze,solution);
             }
@@ -75,7 +67,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
             fromClient.close();
             toClient.close();
         } catch (Exception var6) {
-            var6.printStackTrace();   //TODO: decide how to handle exceptions
+            var6.printStackTrace();
         }
     }
 
@@ -84,24 +76,23 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
         Solution solution =(Solution) objectInputStream.readObject();
          return  solution;
     }
+
     private void saveSolution(byte[] compressedMaze, Solution solution) throws IOException {
         String fileName = String.valueOf(getSolutionNumber());
         String finalPath = getTempDirectoryPath()+fileName+"_"+String.valueOf(System.currentTimeMillis())+".Solution";
         FileOutputStream fileOut = new FileOutputStream(finalPath);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(solution); //TODO: get solution to string and add the whole solution;
+        out.writeObject(solution);
         out.close();
         fileOut.close();
         this.hashtableSolutions.put(ourToString(compressedMaze),finalPath);
-        //this.hashtableSolutions.put(compressedMaze.toString(),finalPath);
         FileOutputStream fileHash =  new FileOutputStream(this.hashPath);
         ObjectOutputStream outHash = new ObjectOutputStream(fileHash);
         outHash.writeObject(this.hashtableSolutions);
         solutionNumber++;
         outHash.close();
-        //this.objectOutputStreamHash.close();
-
     }
+
     public static int getSolutionNumber() {
         return solutionNumber;
     }
@@ -111,16 +102,13 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     }
 
     private String getSolutionFromHash(byte[] compressedMaze) {
-/*        if (this.hashtableSolutions.containsKey(compressedMaze)) {
-            return this.hashtableSolutions.get(compressedMaze);
-        }*/
         if (this.hashtableSolutions.containsKey(ourToString(compressedMaze))) {
             return this.hashtableSolutions.get(ourToString(compressedMaze));
         }
         return null;
     }
 
-    private String ourToString(byte[] compressedMaze) {
+    private String ourToString(byte[] compressedMaze) { //function that gets compressedMaze as bytes[] and returns it as String
         String s = new String(compressedMaze, StandardCharsets.UTF_8);
         return s;
     }
