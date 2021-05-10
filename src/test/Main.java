@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
 
-    private static final String resultsFilePath = "results1.txt";
+    private static final String resultsFilePath = "results.txt";
     private static final String logFilePath = "results.log";
     private static int Port_ServerMazeGenerating = getRandomNumber(5000, 6000);
     private static int Port_ServerSearchProblemSolver = getRandomNumber(6001, 7000);
@@ -67,7 +67,7 @@ public class Main {
         {
             message =  String.valueOf(e);
         }
-        
+
         if (e.getStackTrace().length > 1)
         {
             String msg = String.valueOf(e.getStackTrace()[0]);
@@ -93,9 +93,13 @@ public class Main {
     public static void main(String[] args) {
         try {
 
-            Test_CompressDecompressMaze();
+            //Test_CompressDecompressMaze();
 
             Test_CommunicateWithServers();
+
+
+
+
         }
         catch (Exception e)
         {
@@ -117,7 +121,7 @@ public class Main {
             out.flush();
             out.close();
         } catch (IOException e) {
-//
+
             appendToResultsFile(String.valueOf(total_test));
         }
 
@@ -159,12 +163,27 @@ public class Main {
         solveSearchProblemServer.start();
         mazeGeneratingServer.start();
 
-        CommunicateWithServer_MazeGenerating(counter);
-        CommunicateWithServer_SolveSearchProblem(counter);
+        //CommunicateWithServer_MazeGenerating(counter);
+        //CommunicateWithServer_SolveSearchProblem(counter);
+
+        Thread[] threads = new Thread[6];
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(() -> {
+                CommunicateWithServer_MazeGenerating(counter);
+            });
+            threads[i].start();
+        }
+        for (int i = 0; i < threads.length; i++) {
+            try{
+                threads[i].join();
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         //Stopping all servers
         mazeGeneratingServer.stop();
-        solveSearchProblemServer.stop();
+        //solveSearchProblemServer.stop();
     }
 
     private static void CommunicateWithServer_MazeGenerating(int i) {

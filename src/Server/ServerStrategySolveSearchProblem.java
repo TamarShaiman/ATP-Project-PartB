@@ -20,7 +20,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy {
     //Hashtable<byte[],String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
     Hashtable<String,String> hashtableSolutions;      // Hashtable in order to store solutions of mazes
     String hashPath = System.getProperty("java.io.tmpdir") + "hashtableSolutions.ser";
-    ObjectOutputStream objectOutputStreamHash;
+    //ObjectOutputStream objectOutputStreamHash;
 
     public ServerStrategySolveSearchProblem() {
         this.tempDirectoryPath = System.getProperty("java.io.tmpdir");
